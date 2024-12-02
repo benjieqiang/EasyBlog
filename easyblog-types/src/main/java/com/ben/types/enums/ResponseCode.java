@@ -9,12 +9,17 @@ import lombok.NoArgsConstructor;
 @Getter
 public enum ResponseCode {
 
-    SUCCESS("0000", "成功"),
-    UN_ERROR("0001", "未知失败"),
-    ILLEGAL_PARAMETER("0002", "非法参数"),
+    // ----------- 通用异常状态码 -----------
+    SYSTEM_ERROR("10000", "出错啦，后台小哥正在努力修复中..."),
+    PARAM_NOT_VALID("10001", "参数错误"),
+
+
+    // ----------- 业务异常状态码 -----------
     ;
 
-    private String code;
-    private String info;
+    // 异常码
+    private String errorCode;
+    // 错误信息
+    private String errorMessage;
 
 }
