@@ -17,31 +17,32 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
--- Table structure for t_user
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `t_user`;
-CREATE TABLE `t_user` (
-                          `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+                          `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
                           `username` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
                           `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-                          `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '逻辑删除：0：未删除 1：已删除',
-                          PRIMARY KEY (`id`) USING BTREE,
-                          UNIQUE KEY `uk_username` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户表';
+                          `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '0：未删除 1：已删除',
+                          PRIMARY KEY (`id`),
+                          UNIQUE KEY `uk_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
 -- ----------------------------
--- Table structure for t_user_role
+-- Table structure for user_role
 -- ----------------------------
-DROP TABLE IF EXISTS `t_user_role`;
-CREATE TABLE `t_user_role` (
-                               `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+                               `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
                                `username` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
                                `role` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色',
                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                               PRIMARY KEY (`id`) USING BTREE,
-                               KEY `idx_username` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户角色表';
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               PRIMARY KEY (`id`),
+                               KEY `idx_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='用户角色表';
 
 SET FOREIGN_KEY_CHECKS = 1;
