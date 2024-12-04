@@ -2,6 +2,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+easyblog-app/src/main/resources/rebel.xml
+easyblog-domain/src/main/resources/rebel.xml
+easyblog-infrastructure/src/main/resources/rebel.xml
+easyblog-trigger/src/main/resources/rebel.xml
+easyblog-types/src/main/resources/rebel.xml
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -38,3 +43,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
