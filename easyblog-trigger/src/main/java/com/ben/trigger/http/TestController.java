@@ -10,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,7 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Api(tags="测试模块")
 public class TestController {
-    @PostMapping("/test")
+    @PostMapping("/admin/test")
     @ApiOperationLog(description = "测试接口")
     public Response test(@RequestBody @Validated UserDTO user) {
         // 主动定义一个运行时异常，分母不能为零, 会被全局异常捕获，返回自定义信息
@@ -44,5 +42,11 @@ public class TestController {
 //        user.setTime(LocalTime.now());
 
         return Response.success(user);
+    }
+
+
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
     }
 }

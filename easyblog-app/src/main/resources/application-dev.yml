@@ -1,17 +1,6 @@
 server:
   port: 8091
 
-# 线程池配置
-thread:
-  pool:
-    executor:
-      config:
-        core-pool-size: 20
-        max-pool-size: 50
-        keep-alive-time: 5000
-        block-queue-size: 5000
-        policy: CallerRunsPolicy
-
 # 数据库配置；启动时配置数据库资源信息
 spring:
   datasource:
@@ -29,6 +18,11 @@ spring:
     connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000
     connection-test-query: SELECT 1
   type: com.zaxxer.hikari.HikariDataSource
+
+  security:
+    user:
+      name: admin # 登录用户名
+      password: 123456 # 登录密码
 
 # MyBatis 配置【如需使用记得打开】
 mybatis:
