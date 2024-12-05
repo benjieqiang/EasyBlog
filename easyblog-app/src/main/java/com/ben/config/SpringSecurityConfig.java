@@ -1,8 +1,12 @@
 package com.ben.config;
 
 import com.ben.domain.auth.filter.JwtAuthenticationFilter;
+import com.ben.domain.auth.filter.TokenAuthenticationFilter;
+import com.ben.domain.auth.handler.RestAccessDeniedHandler;
+import com.ben.domain.auth.handler.RestAuthenticationEntryPoint;
 import com.ben.domain.auth.handler.RestAuthenticationFailureHandler;
 import com.ben.domain.auth.handler.RestAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,17 +42,28 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private RestAuthenticationEntryPoint authEntryPoint;
+    @Autowired
+    private RestAccessDeniedHandler deniedHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable(). // 禁用 csrf
                 formLogin().disable() // 禁用表单登录
-                // 将自定义的JWT过滤器放到过滤链中
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .mvcMatchers("/admin/**").authenticated() // 认证所有以 /admin 为前缀的 URL 资源
                 .anyRequest().permitAll() // 其他直接放行，无需认证
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 前后端分离，无需创建会话
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 前后端分离，无需创建会话
+                .and()
+                .httpBasic().authenticationEntryPoint(authEntryPoint) // 处理用户未登录访问受保护的资源的情况
+                .and()
+                .exceptionHandling().accessDeniedHandler(deniedHandler) // 处理登录成功后访问受保护的资源，但是权限不够的情况
+                .and()
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)    // 自定义的JWT过滤器放到过滤链中
+                .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) // Token校验过滤器添加到用户认证过滤器之前
+        ;
     }
 
     @Bean
@@ -77,5 +92,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationFailureHandler(restAuthenticationFailureHandler);
 
         return filter;
+    }
+
+    /**
+     * Token 校验过滤器
+     * @return TokenAuthenticationFilter
+     */
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter();
     }
 }
