@@ -1,6 +1,7 @@
 package com.ben.types.response;
 
 import com.ben.types.exception.BizException;
+import com.ben.types.exception.IBaseException;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -47,6 +48,13 @@ public class Response<T> implements Serializable {
         response.setSuccess(false);
         response.setErrorCode(errorCode);
         response.setMessage(errorMessage);
+        return response;
+    }
+    public static <T> Response<T> fail(IBaseException baseException) {
+        Response<T> response = new Response<>();
+        response.setSuccess(false);
+        response.setErrorCode(baseException.getErrorCode());
+        response.setMessage(baseException.getErrorMessage());
         return response;
     }
 

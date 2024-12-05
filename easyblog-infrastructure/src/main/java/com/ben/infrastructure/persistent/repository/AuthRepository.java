@@ -9,6 +9,7 @@ import com.ben.infrastructure.persistent.po.User;
 import com.ben.infrastructure.persistent.po.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class AuthRepository implements IAuthRepository {
     public UserEntity queryUserByUsername(String username) {
         User user = userDao.queryByUsername(username);
         UserEntity userEntity = new UserEntity();
+        if (null == user) return null;
         userEntity.setUsername(user.getUsername());
         userEntity.setPassword(user.getPassword());
         userEntity.setIsDeleted(user.getIsDeleted());
@@ -73,6 +75,7 @@ public class AuthRepository implements IAuthRepository {
     @Override
     public List<UserRoleEntity> queryUserRoleByUsername(String username) {
         List<UserRole> userRoles = userRoleDao.queryByUsername(username);
+        if (CollectionUtils.isEmpty(userRoles)) return null;
         List<UserRoleEntity> userRoleEntities = new ArrayList<>(userRoles.size());
         for (UserRole userRole : userRoles) {
             UserRoleEntity userRoleEntity = new UserRoleEntity();
