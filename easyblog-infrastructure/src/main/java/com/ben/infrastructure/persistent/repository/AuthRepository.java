@@ -41,11 +41,6 @@ public class AuthRepository implements IAuthRepository {
     }
 
     @Override
-    public int updatePasswordByUsername(String username) {
-        return userDao.updatePasswordByUsername(username);
-    }
-
-    @Override
     public UserEntity queryUserByUsername(String username) {
         User user = userDao.queryByUsername(username);
         UserEntity userEntity = new UserEntity();

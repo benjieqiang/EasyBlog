@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface IUserDao {
     void insert(User user);
 
-    int updatePasswordByUsername(String username);
+    int updatePasswordByUsername(User user);
 
     User queryByUsername(String username);
 }

@@ -47,6 +47,6 @@ public class ApiTest {
     @Test
     public void test_passwordEncode() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        log.info("encode: {}", encoder.encode("123456"));
+        log.info("encode: {}", encoder.encode("test123"));
     }
 }

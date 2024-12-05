@@ -35,7 +35,7 @@ public class UserDaoTest {
 
     @Test
     public void test_updatePasswordByUsername() {
-        int result = userDao.updatePasswordByUsername("ben");
+        int result = userDao.updatePasswordByUsername(User.builder().username("ben").password("123456dd").build());
         log.info("测试结果：{}", result);
     }
 

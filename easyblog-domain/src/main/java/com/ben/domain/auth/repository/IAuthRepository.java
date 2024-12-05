@@ -14,8 +14,6 @@ import java.util.List;
 public interface IAuthRepository {
     void insert(UserEntity userEntity);
 
-    int updatePasswordByUsername(String username);
-
     UserEntity queryUserByUsername(String username);
 
     void insert(UserRoleEntity userRoleEntity);

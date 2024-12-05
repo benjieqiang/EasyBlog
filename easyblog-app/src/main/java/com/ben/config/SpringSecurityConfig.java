@@ -7,11 +7,13 @@ import com.ben.domain.auth.handler.RestAuthenticationEntryPoint;
 import com.ben.domain.auth.handler.RestAuthenticationFailureHandler;
 import com.ben.domain.auth.handler.RestAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,6 +33,7 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) // 启用方法级别的安全性设置。
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
@@ -47,12 +50,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RestAccessDeniedHandler deniedHandler;
 
+    @Value("${app.config.api-version}")
+    private String apiVersion;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable(). // 禁用 csrf
                 formLogin().disable() // 禁用表单登录
                 .authorizeHttpRequests()
-                .mvcMatchers("/admin/**").authenticated() // 认证所有以 /admin 为前缀的 URL 资源
+                .mvcMatchers("api/" + apiVersion + "/admin/**").authenticated() // 动态版本控制
                 .anyRequest().permitAll() // 其他直接放行，无需认证
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 前后端分离，无需创建会话

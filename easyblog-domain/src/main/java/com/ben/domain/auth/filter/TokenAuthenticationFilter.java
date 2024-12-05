@@ -40,6 +40,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Value("${jwt.tokenHeaderKey}")
     private String tokenHeaderKey;
 
+    @Value("${app.config.api-version}")
+    private String apiVersion;
+
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -52,8 +55,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
-
-        if (requestURI.startsWith("/admin")) {
+        log.info("requestURI: {}", requestURI);
+        if (requestURI.startsWith("/api/" + apiVersion + "/admin")) {
             // 从请求头中获取 key 为 Authorization 的值
             String header = request.getHeader(tokenHeaderKey);
 

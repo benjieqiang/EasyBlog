@@ -26,8 +26,9 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @Api(tags="测试模块")
+@RequestMapping("/api/${app.config.api-version}/admin/")
 public class TestController {
-    @PostMapping("/admin/test")
+    @PostMapping("/test")
     @ApiOperationLog(description = "测试接口")
     public Response test(@RequestBody @Validated UserDTO user) {
         // 主动定义一个运行时异常，分母不能为零, 会被全局异常捕获，返回自定义信息

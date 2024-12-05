@@ -1,5 +1,11 @@
 spring:
   config:
     name: easyblog-app
+
   profiles:
     active: dev
+# 应用配置
+app:
+  config:
+    # 版本，方便通过接口版本升级
+    api-version: v1

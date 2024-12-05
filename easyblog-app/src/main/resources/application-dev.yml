@@ -19,10 +19,6 @@ spring:
     connection-test-query: SELECT 1
   type: com.zaxxer.hikari.HikariDataSource
 
-  security:
-    user:
-      name: admin # 登录用户名
-      password: 123456 # 登录密码
 
 # MyBatis 配置【如需使用记得打开】
 mybatis:
@@ -35,7 +31,7 @@ jwt:
   # 秘钥
   secret: FUymUYPFOHwnXsf1zSNyb3MJExs6Wdj09FYsZkOTNjWtdZYY245ONXBGYWerMUKlJp7zVXpB
   # token 过期时间（单位：分钟） 24*60
-  tokenExpireTime: 1
+  tokenExpireTime: 1440
   # token 请求头中的 key 值
   tokenHeaderKey: Authorization
   # token 请求头中的 value 值前缀
