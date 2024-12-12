@@ -3,7 +3,7 @@ package com.ben.domain.admin.repository;
 /**
  * @Author: benjieqiang
  * @CreateTime: 2024-12-05  23:02
- * @Description: TODO
+ * @Description: 用户仓储服务
  * @Version: 1.0
  */
 public interface IAdminUserRepository {

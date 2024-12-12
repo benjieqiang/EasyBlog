@@ -25,6 +25,14 @@ mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
   config-location: classpath:/mybatis/config/mybatis-config.xml
 
+
+pagehelper:
+  helper-dialect: mysql    # 数据库类型
+  reasonable: true         # 合理化分页参数，页码<=0时会查询第一页
+  support-methods-arguments: true # 支持方法参数的分页
+  params: count=countSql   # 指定count查询的参数
+
+
 jwt:
   # 签发人
   issuer: ben

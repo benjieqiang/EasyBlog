@@ -1,7 +1,7 @@
 package com.ben.trigger.http;
 
 import com.ben.domain.admin.service.IAdminUserService;
-import com.ben.trigger.http.dto.AdminUserDTO;
+import com.ben.trigger.http.dto.user.AdminUserDTO;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.enums.ResponseCode;
 import com.ben.types.response.Response;

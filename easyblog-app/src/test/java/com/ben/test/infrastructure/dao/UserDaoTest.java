@@ -1,4 +1,4 @@
-package com.ben.test.infrastructure;
+package com.ben.test.infrastructure.dao;
 
 import com.ben.infrastructure.persistent.dao.IUserDao;
 import com.ben.infrastructure.persistent.po.User;

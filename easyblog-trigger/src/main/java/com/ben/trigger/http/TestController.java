@@ -1,21 +1,13 @@
 package com.ben.trigger.http;
 
-import com.ben.trigger.http.dto.UserDTO;
+import com.ben.trigger.http.dto.user.UserDTO;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.response.Response;
 import com.ben.types.utils.JsonUtil;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.stream.Collectors;
 
 /**
  * @Author: benjieqiang

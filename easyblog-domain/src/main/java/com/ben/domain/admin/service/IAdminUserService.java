@@ -2,7 +2,7 @@ package com.ben.domain.admin.service;
 
 /**
  * @InterfaceName: IAdminUserService
- * @Description: 添加描述
+ * @Description: 用户管理
  * @Author: benjieqiang
  * @LastChangeDate: 2024/12/5 10:50 PM
  * @Version: v1.0

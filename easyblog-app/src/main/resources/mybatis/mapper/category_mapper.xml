@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.ICategoryDao">
+
+    <resultMap id="categoryMap" type="com.ben.infrastructure.persistent.po.Category">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="articles_total" property="articlesTotal"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="String">
+        INSERT INTO category(name,
+                             create_time,
+                             update_time,
+                             is_deleted,
+                             articles_total)
+        VALUES (#{name}, now(), now(), 0, 0)
+    </insert>
+
+    <update id="updateCategory" parameterType="Long">
+        UPDATE category
+        SET is_deleted = 1
+        WHERE id = #{id}
+          and is_deleted = 0
+    </update>
+
+    <select id="findCategoryList" resultMap="categoryMap">
+        select id, name, create_time, update_time, articles_total
+        from category
+        where is_deleted = 0
+    </select>
+
+    <select id="selectPageList" resultMap="categoryMap">
+        SELECT id, name, create_time, update_time, articles_total FROM category
+        WHERE is_deleted = 0
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="startDate != null">
+            AND create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_time &lt;= #{endDate}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+    <select id="selectByName" resultType="com.ben.infrastructure.persistent.po.Category">
+        select id, name, create_time, update_time, articles_total
+        from category
+        where name = #{name} and is_deleted = 0
+    </select>
+
+
+</mapper>
