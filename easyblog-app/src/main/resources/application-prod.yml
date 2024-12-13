@@ -24,6 +24,13 @@ mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
   config-location:  classpath:/mybatis/config/mybatis-config.xml
 
+minio:
+  enable: true
+  endpoint: http://127.0.0.1:9090 #endpoint
+  accessKey: admin #accessKey
+  secretKey: minioadmin #secretKey
+  bucketName: easyblog # bucketName
+
 jwt:
   # 签发人
   issuer: ben

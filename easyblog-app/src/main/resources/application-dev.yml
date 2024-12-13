@@ -32,6 +32,12 @@ pagehelper:
   support-methods-arguments: true # 支持方法参数的分页
   params: count=countSql   # 指定count查询的参数
 
+minio:
+  enable: false
+  endpoint: http://127.0.0.1:9000 #endpoint
+  accessKey: rLO8RqiSpHwRsM2NhpKN #accessKey
+  secretKey: OVmz4Bk57Vru6Y61tkZstLezc1MggZj2Dkt0pbnI #secretKey
+  bucketName: easyblog # bucketName
 
 jwt:
   # 签发人

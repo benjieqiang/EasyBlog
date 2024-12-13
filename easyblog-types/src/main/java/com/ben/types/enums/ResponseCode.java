@@ -28,6 +28,8 @@ public enum ResponseCode implements IBaseException {
     TAG_CANT_DUPLICATE("20007", "请勿添加表中已存在的标签！"),
     TAG_NOT_EXISTED("20008", "该标签不存在！"),
 
+    FILE_UPLOAD_FAILED("20009", "文件上传失败！"),
+
     ;
 
     // 异常码
