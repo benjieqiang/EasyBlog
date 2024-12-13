@@ -11,11 +11,39 @@
  Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 13/12/2024 08:37:41
+ Date: 13/12/2024 15:51:52
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for blog_setting
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_setting`;
+CREATE TABLE `blog_setting` (
+                                `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+                                `logo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '博客Logo',
+                                `name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '博客名称',
+                                `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '作者名',
+                                `introduction` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '介绍语',
+                                `avatar` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '作者头像',
+                                `github_homepage` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'GitHub 主页访问地址',
+                                `csdn_homepage` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'CSDN 主页访问地址',
+                                `gitee_homepage` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'Gitee 主页访问地址',
+                                `zhihu_homepage` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '知乎主页访问地址',
+                                `mail` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '博主邮箱地址',
+                                `is_comment_sensi_word_open` tinyint NOT NULL DEFAULT '1' COMMENT '是否开启评论敏感词过滤, 0:不开启；1：开启',
+                                `is_comment_examine_open` tinyint NOT NULL DEFAULT '0' COMMENT '是否开启评论审核, 0: 未开启；1：开启',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='博客设置表';
+
+-- ----------------------------
+-- Records of blog_setting
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_setting` (`id`, `logo`, `name`, `author`, `introduction`, `avatar`, `github_homepage`, `csdn_homepage`, `gitee_homepage`, `zhihu_homepage`, `mail`, `is_comment_sensi_word_open`, `is_comment_examine_open`) VALUES (1, 'https://avatars.githubusercontent.com/u/26585993', 'Ben', 'Ben', 'Less is More', 'https://avatars.githubusercontent.com/u/26585993', 'http://github.benjieqiang.com', 'http://github.benjieqiang.com', 'http://github.benjieqiang.com', 'http://github.benjieqiang.com', 'benjieqiang@gmail.com', 1, 1);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for category
@@ -64,7 +92,7 @@ CREATE TABLE `tag` (
                        PRIMARY KEY (`id`) USING BTREE,
                        UNIQUE KEY `uk_name` (`name`) USING BTREE,
                        KEY `idx_create_time` (`create_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='文章标签表';
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='文章标签表';
 
 -- ----------------------------
 -- Records of tag
@@ -104,7 +132,12 @@ INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `ar
 INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (37, 'Vant', '2024-04-17 19:19:48', '2024-04-17 19:19:48', 0, 1);
 INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (38, 'ElementUI', '2024-04-17 19:19:48', '2024-04-17 19:19:48', 0, 1);
 INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (39, '字体图标', '2024-04-19 18:46:32', '2024-04-19 18:46:32', 0, 2);
-INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (40, '面试题', '2024-04-23 18:58:17', '2024-04-23 18:58:17', 0, 1);
+INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (40, '面试题', '2024-04-23 18:58:17', '2024-04-23 18:58:17', 1, 1);
+INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (44, 'test1', '2024-12-13 10:37:29', '2024-12-13 10:37:29', 0, 0);
+INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (45, 'test2', '2024-12-13 10:37:29', '2024-12-13 10:37:29', 0, 0);
+INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (46, 'test3', '2024-12-13 10:37:29', '2024-12-13 10:37:29', 1, 0);
+INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (49, '123', '2024-12-13 11:18:00', '2024-12-13 11:18:00', 0, 0);
+INSERT INTO `tag` (`id`, `name`, `create_time`, `update_time`, `is_deleted`, `articles_total`) VALUES (50, '12334', '2024-12-13 11:18:00', '2024-12-13 11:18:00', 0, 0);
 COMMIT;
 
 -- ----------------------------

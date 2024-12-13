@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.IBlogSettingDao">
+
+    <resultMap id="blogSettingMap" type="com.ben.infrastructure.persistent.po.BlogSetting">
+        <id column="id" property="id"/>
+        <result column="logo" property="logo"/>
+        <result column="name" property="name"/>
+        <result column="author" property="author"/>
+        <result column="introduction" property="introduction"/>
+        <result column="avatar" property="avatar"/>
+        <result column="github_homepage" property="githubHomepage"/>
+        <result column="csdn_homepage" property="csdnHomepage"/>
+        <result column="gitee_homepage" property="giteeHomepage"/>
+        <result column="zhihu_homepage" property="zhihuHomepage"/>
+        <result column="mail" property="mail"/>
+        <result column="is_comment_sensi_word_open" property="isCommentSensiWordOpen"/>
+        <result column="is_comment_examine_open" property="isCommentExamineOpen"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.BlogSetting">
+        INSERT INTO blog_setting(logo,
+                                 name,
+                                 author,
+                                 introduction,
+                                 avatar,
+                                 github_homepage,
+                                 csdn_homepage,
+                                 gitee_homepage,
+                                 zhihu_homepage,
+                                 mail,
+                                 is_comment_sensi_word_open,
+                                 is_comment_examine_open)
+        VALUES (#{logo}, #{name}, #{author}, #{introduction}, #{avatar}, #{githubHomepage}, #{csdnHomepage},
+                #{giteeHomepage}, #{zhihuHomepage}, #{mail}, #{isCommentSensiWordOpen}, #{isCommentExamineOpen})
+    </insert>
+
+    <update id="update" parameterType="com.ben.infrastructure.persistent.po.BlogSetting">
+        UPDATE blog_setting
+        SET logo                       = #{logo},
+            name                       = #{name},
+            author                     = #{author},
+            introduction               = #{introduction},
+            avatar                     = #{avatar},
+            github_homepage            = #{githubHomepage},
+            csdn_homepage              = #{csdnHomepage},
+            gitee_homepage             = #{giteeHomepage},
+            zhihu_homepage             = #{zhihuHomepage},
+            mail                       = #{mail},
+            is_comment_sensi_word_open = #{isCommentSensiWordOpen},
+            is_comment_examine_open    = #{isCommentExamineOpen}
+            WHERE id = #{id}
+    </update>
+
+    <select id="selectBlogSetting" resultMap="blogSettingMap">
+        select id,
+            logo,
+            name,
+            author,
+            introduction,
+            avatar,
+            github_homepage,
+            csdn_homepage,
+            gitee_homepage,
+            zhihu_homepage,
+            mail,
+            is_comment_sensi_word_open,
+            is_comment_examine_open
+        from blog_setting
+        where id = #{id}
+    </select>
+
+
+
+
+</mapper>
