@@ -23,8 +23,10 @@ public enum ResponseCode implements IBaseException {
     FORBIDDEN("20004", "演示账号仅支持查询操作！"),
 
     CATEGORY_NAME_IS_EXISTED("20005", "该分类已存在，请勿重复添加！"),
-    TAG_CANT_DUPLICATE("20006", "请勿添加表中已存在的标签！"),
-    TAG_NOT_EXISTED("20007", "该标签不存在！"),
+    CATEGORY_NOT_EXISTED("20006", "该分类不存在"),
+
+    TAG_CANT_DUPLICATE("20007", "请勿添加表中已存在的标签！"),
+    TAG_NOT_EXISTED("20008", "该标签不存在！"),
 
     ;
 

@@ -6,7 +6,7 @@ import com.ben.domain.admin.service.IAdminCategoryService;
 import com.ben.trigger.http.dto.category.DeleteCategoryReqDTO;
 import com.ben.trigger.http.dto.category.FindCategoryPageListReqDTO;
 import com.ben.trigger.http.dto.category.FindCategoryPageListRspDTO;
-import com.ben.trigger.http.dto.category.SelectRspDTO;
+import com.ben.trigger.http.dto.common.SelectRspDTO;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.enums.ResponseCode;
 import com.ben.types.response.PageResponse;
@@ -24,19 +24,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * @Author: benjieqiang
  * @CreateTime: 2024-12-12  15:11
- * @Description: Admin 标签管理模块
+ * @Description: Admin 分类模块
  * @Version: 1.0
  */
 @RestController
 @Slf4j
-@Api(tags = "Admin 标签管理模块")
+@Api(tags = "Admin 分类模块")
 @RequestMapping("/api/${app.config.api-version}/admin/category")
 public class AdminCategoryController {
 
@@ -89,7 +88,7 @@ public class AdminCategoryController {
     public Response deleteCategory(@RequestBody @Validated DeleteCategoryReqDTO deleteCategoryReqDTO) {
         int count = categoryService.deleteCategory(deleteCategoryReqDTO.getId());
         if (count == 0) {
-            return Response.fail(ResponseCode.TAG_NOT_EXISTED);
+            return Response.fail(ResponseCode.CATEGORY_NOT_EXISTED);
         }
         return Response.success();
     }

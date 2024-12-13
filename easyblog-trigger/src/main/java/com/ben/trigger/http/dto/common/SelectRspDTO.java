@@ -1,4 +1,4 @@
-package com.ben.trigger.http.dto.category;
+package com.ben.trigger.http.dto.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
