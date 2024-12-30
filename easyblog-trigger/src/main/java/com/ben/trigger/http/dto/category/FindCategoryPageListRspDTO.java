@@ -31,7 +31,7 @@ public class FindCategoryPageListRspDTO {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 文章总数

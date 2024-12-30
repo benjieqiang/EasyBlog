@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -24,9 +25,9 @@ public class Tag {
     /* 标签名称 */
     private String name;
     /* 创建时间 */
-    private Date createTime;
+    private LocalDateTime createTime;
     /* 最后一次更新时间 */
-    private Date updateTime;
+    private LocalDateTime updateTime;
     /* 0：未删除 1：已删除 */
     private Integer isDeleted;
     /* 文章总数 */

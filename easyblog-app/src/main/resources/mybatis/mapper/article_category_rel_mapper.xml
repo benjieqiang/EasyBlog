@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.IArticleCategoryRelDao">
+
+    <resultMap id="articleCategoryRelMap" type="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+        <id column="id" property="id"/>
+        <result column="article_id" property="articleId"/>
+        <result column="category_id" property="categoryId"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+        insert into article_category_rel
+            (article_id, category_id)
+        values (#{articleId}, #{categoryId})
+    </insert>
+    <delete id="deleteByArticleId">
+        delete
+        from article_category_rel
+        where article_id = #{articleId}
+    </delete>
+    <select id="selectByArticleId" resultType="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+        select id, article_id, category_id
+        from article_category_rel
+        where article_id = #{articleId}
+    </select>
+    <select id="selectOneByCategoryId" resultType="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+        select id, article_id, category_id
+        from article_category_rel
+        where category_id = #{categoryId} limit 1
+    </select>
+
+    <select id="selectByArticleIds" resultMap="articleCategoryRelMap">
+        SELECT id, article_id, category_id
+        FROM article_category_rel
+        WHERE article_id IN
+        <foreach collection="articleIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectListByCategoryId" resultMap="articleCategoryRelMap">
+        select id, article_id, category_id
+        from article_category_rel
+        where category_id = #{categoryId}
+    </select>
+
+</mapper>

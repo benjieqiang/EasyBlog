@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.IArticleDao">
+
+    <resultMap id="articleMap" type="com.ben.infrastructure.persistent.po.Article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="cover" property="cover"/>
+        <result column="summary" property="summary"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="read_num" property="readNum"/>
+        <result column="weight" property="weight"/>
+        <result column="type" property="type"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Article">
+        INSERT INTO article(title,
+                            cover,
+                            summary,
+                            create_time,
+                            update_time,
+                            is_deleted,
+                            read_num,
+                            weight,
+                            type)
+        VALUES (#{title}, #{cover}, #{summary}, now(), now(), 0, 0, #{weight}, #{type})
+    </insert>
+
+    <update id="deleteByArticleId" parameterType="Long">
+        update article
+        set is_deleted = 1
+        where id = #{articleId} and is_deleted = 0
+    </update>
+
+    <select id="selectMaxWeight" resultMap="articleMap">
+        select id,
+               title,
+               cover,
+               summary,
+               create_time,
+               update_time,
+               is_deleted,
+               read_num,
+               weight,
+               type
+        from article
+        order by weight desc limit 1;
+    </select>
+
+    <select id="selectPageList" resultMap="articleMap">
+        select id,
+        title,
+        cover,
+        summary,
+        create_time,
+        update_time,
+        is_deleted,
+        read_num,
+        weight,
+        type
+        from article
+        WHERE is_deleted = 0
+        <if test="title != null and title != ''">
+            AND name LIKE CONCAT('%', #{title}, '%')
+        </if>
+        <if test="startDate != null">
+            AND create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_time &lt;= #{endDate}
+        </if>
+        <if test="type != null">
+            AND type = #{type}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectPageListByArticleIds" resultMap="articleMap">
+        select id,
+        title,
+        cover,
+        summary,
+        create_time,
+        update_time,
+        is_deleted,
+        read_num,
+        weight,
+        type
+        from article
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectPreArticle" resultType="com.ben.infrastructure.persistent.po.Article">
+        select id,
+               title,
+               cover,
+               summary,
+               create_time,
+               update_time,
+               is_deleted,
+               read_num,
+               weight,
+               type
+        from article
+        where id &lt; #{id}
+        order by id desc limit 1
+    </select>
+
+    <select id="selectNextArticle" resultType="com.ben.infrastructure.persistent.po.Article">
+        select id,
+               title,
+               cover,
+               summary,
+               create_time,
+               update_time,
+               is_deleted,
+               read_num,
+               weight,
+               type
+        from article
+        where id &gt; #{id}
+        order by id
+            limit 1
+    </select>
+
+    <update id="increaseReadNum" parameterType="Long">
+        update article
+        set read_num = read_num + 1
+        where id = #{id}
+    </update>
+
+    <select id="selectAllReadNum" resultType="java.lang.Long">
+        select sum(read_num)
+        from article
+        where is_deleted = 0
+    </select>
+
+    <update id="updateByIds" parameterType="map">
+        UPDATE article
+        <set>
+            <if test="article.title != null">title = #{article.title},</if>
+            <if test="article.cover != null">cover = #{article.cover},</if>
+            <if test="article.isDeleted != null">is_deleted = #{article.isDeleted},</if>
+            <if test="article.readNum != null">read_num = #{article.readNum},</if>
+            <if test="article.weight != null">weight = #{article.weight},</if>
+            <if test="article.type != null">type = #{article.type}</if>
+        </set>
+        WHERE id IN
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>

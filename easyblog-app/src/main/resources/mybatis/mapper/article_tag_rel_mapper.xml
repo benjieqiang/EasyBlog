@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.IArticleTagRelDao">
+
+    <resultMap id="articleTagRelMap" type="com.ben.infrastructure.persistent.po.ArticleTagRel">
+        <id column="id" property="id"/>
+        <result column="article_id" property="articleId"/>
+        <result column="tag_id" property="tagId"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.ArticleTagRel">
+        insert into article_tag_rel(article_id,
+                                    tag_id)
+        values (#{articleId}, #{tagId})
+    </insert>
+
+    <delete id="deleteByArticleId" parameterType="Long">
+        delete
+        from article_tag_rel
+        where article_id = #{articleId}
+    </delete>
+    <select id="selectByArticleId" resultMap="articleTagRelMap">
+        select id, article_id, tag_id
+        from article_tag_rel
+        where article_id = #{articleId}
+    </select>
+    <select id="selectOneByTagId" resultMap="articleTagRelMap">
+        select id, article_id, tag_id
+        from article_tag_rel
+        where tag_id = #{tagId} limit 1
+    </select>
+    <select id="selectByArticleIds" resultMap="articleTagRelMap">
+        SELECT id, article_id, tag_id
+        FROM article_tag_rel
+        WHERE article_id IN
+        <foreach collection="articleIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectByTagId" resultMap="articleTagRelMap">
+        select id, article_id, tag_id
+        from article_tag_rel
+        where tag_id = #{tagId}
+    </select>
+
+
+</mapper>
