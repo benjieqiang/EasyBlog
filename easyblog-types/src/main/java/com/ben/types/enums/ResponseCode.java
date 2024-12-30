@@ -30,7 +30,8 @@ public enum ResponseCode implements IBaseException {
 
     CATEGORY_NOT_EXISTED("20009", "提交的分类不存在！"),
     INSERT_FAILED("20010", "插入失败！"),
-    PUBLISH_FAILED("20011", "文章发布失败！"),
+    ARTICLE_PUBLISH_FAILED("20011", "文章发布失败！"),
+    ARTICLE_DELETE_FAILED("20012", "文章删除失败！"),
 
     ;
 

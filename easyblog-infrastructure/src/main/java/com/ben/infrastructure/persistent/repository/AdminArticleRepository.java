@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -180,5 +178,26 @@ public class AdminArticleRepository implements IAdminArticleRepository {
             // 批量插入
             articleTagRelDao.insertBatch(articleTagRelList);
         }
+    }
+
+    @Override
+    public void deleteArticleById(Long id) {
+        transactionTemplate.execute(status -> {
+            try {
+                // 1. 删除文章
+                articleDao.deleteByArticleId(id);
+                // 2. 删除文章内容
+                articleContentDao.deleteByArticleId(id);
+                // 3. 删除文章-分类关联记录
+                articleCategoryRelDao.deleteByArticleId(id);
+                // 4. 删除文章-标签关联记录
+                articleTagRelDao.deleteByArticleId(id);
+                return 1;
+            } catch (Exception e) {
+                status.setRollbackOnly();
+                log.error("删除文章记录，失败", e);
+                throw new BizException(ResponseCode.ARTICLE_DELETE_FAILED);
+            }
+        });
     }
 }

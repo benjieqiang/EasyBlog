@@ -12,4 +12,6 @@ public interface IAdminArticleService {
 
     /* 发布文章 */
     void publishArticle(ArticleEntity articleEntity);
+
+    void deleteArticle(Long id);
 }

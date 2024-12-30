@@ -2,6 +2,7 @@ package com.ben.trigger.http;
 
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.service.IAdminArticleService;
+import com.ben.trigger.http.dto.article.DeleteArticleReqDTO;
 import com.ben.trigger.http.dto.article.PublishArticleReqDTO;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.enums.ResponseCode;
@@ -48,7 +49,20 @@ public class AdminArticleController {
         try {
             articleService.publishArticle(articleEntity);
         } catch (Exception e) {
-            return Response.fail(ResponseCode.PUBLISH_FAILED);
+            return Response.fail(ResponseCode.ARTICLE_PUBLISH_FAILED);
+        }
+        return Response.success();
+    }
+    @PostMapping("/delete")
+    @ApiOperation(value = "文章删除")
+    @ApiOperationLog(description = "文章删除")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Response deleteArticle(@RequestBody @Validated DeleteArticleReqDTO request) {
+        try {
+            Long articleId = request.getId();
+            articleService.deleteArticle(articleId);
+        } catch (Exception e) {
+            return Response.fail(ResponseCode.ARTICLE_DELETE_FAILED);
         }
         return Response.success();
     }

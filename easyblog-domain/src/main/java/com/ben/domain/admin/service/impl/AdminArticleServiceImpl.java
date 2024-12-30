@@ -22,4 +22,9 @@ public class AdminArticleServiceImpl implements IAdminArticleService {
     public void publishArticle(ArticleEntity articleEntity) {
         articleRepository.publishArticle(articleEntity);
     }
+
+    @Override
+    public void deleteArticle(Long id) {
+        articleRepository.deleteArticleById(id);
+    }
 }

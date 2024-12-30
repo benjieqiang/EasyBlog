@@ -10,4 +10,6 @@ import com.ben.domain.admin.model.entity.ArticleEntity;
  */
 public interface IAdminArticleRepository {
     void publishArticle(ArticleEntity articleEntity);
+
+    void deleteArticleById(Long id);
 }
