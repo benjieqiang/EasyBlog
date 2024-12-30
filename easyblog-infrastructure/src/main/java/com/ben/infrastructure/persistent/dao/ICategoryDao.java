@@ -19,6 +19,8 @@ import java.util.List;
 public interface ICategoryDao {
     Category selectByName(String name);
 
+    Category selectByCategoryId(Long id);
+
     void insert(String name);
 
     int updateCategory(Long id);

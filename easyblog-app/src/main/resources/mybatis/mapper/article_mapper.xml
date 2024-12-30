@@ -15,7 +15,7 @@
         <result column="type" property="type"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Article">
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Article" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO article(title,
                             cover,
                             summary,
@@ -25,7 +25,7 @@
                             read_num,
                             weight,
                             type)
-        VALUES (#{title}, #{cover}, #{summary}, now(), now(), 0, 0, #{weight}, #{type})
+        VALUES (#{title}, #{cover}, #{summary}, now(), now(), 0, 0, 0, 1)
     </insert>
 
     <update id="deleteByArticleId" parameterType="Long">

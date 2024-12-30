@@ -18,7 +18,7 @@ import java.util.List;
 public interface ITagDao {
     List<Tag> selectByName(@Param("name") String name);
 
-    void insert(String name);
+    void insert(Tag tag);
 
     void batchInsert(@Param("tags") List<String> tags);
 

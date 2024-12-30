@@ -47,11 +47,17 @@
         </if>
         ORDER BY create_time DESC
     </select>
-    <select id="selectByName" resultType="com.ben.infrastructure.persistent.po.Category">
+    <select id="selectByName" resultMap="categoryMap">
         select id, name, create_time, update_time, articles_total
         from category
-        where name = #{name} and is_deleted = 0
+        where name = #{name}
+          and is_deleted = 0
     </select>
 
-
+    <select id="selectByCategoryId" resultMap="categoryMap">
+        select id, name, create_time, update_time, articles_total
+        from category
+        where id = #{id}
+          and is_deleted = 0
+    </select>
 </mapper>

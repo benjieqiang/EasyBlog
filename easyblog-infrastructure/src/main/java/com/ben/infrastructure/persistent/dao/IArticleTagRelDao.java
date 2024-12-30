@@ -16,6 +16,8 @@ import java.util.List;
 public interface IArticleTagRelDao {
     /* 插入 */
     void insert(ArticleTagRel articleTagRel);
+    /* 批量插入 */
+    void insertBatch(List<ArticleTagRel> tags);
     /* 根据文章 ID 删除关联记录 */
     int deleteByArticleId(Long articleId);
     /* 根据文章 ID 来查询 */

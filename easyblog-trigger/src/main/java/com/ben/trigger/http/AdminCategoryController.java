@@ -88,7 +88,7 @@ public class AdminCategoryController {
     public Response deleteCategory(@RequestBody @Validated DeleteCategoryReqDTO deleteCategoryReqDTO) {
         int count = categoryService.deleteCategory(deleteCategoryReqDTO.getId());
         if (count == 0) {
-            return Response.fail(ResponseCode.CATEGORY_NOT_EXISTED);
+            return Response.fail(ResponseCode.TAG_NOT_EXISTED);
         }
         return Response.success();
     }

@@ -38,10 +38,10 @@ public class ArticleDaoTest {
                 .title("测试")
                 .cover("https://23423423.png")
                 .summary("测试哈哈")
-                .type(1)
                 .weight(22)
                 .build();
         articleDao.insert(article);
+        log.info("测试结果: {}, {}", article.getId());
     }
 
     /* 删除 */

@@ -11,20 +11,21 @@
         <result column="articles_total" property="articlesTotal"/>
     </resultMap>
 
-    <insert id="insert" parameterType="String">
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Tag" useGeneratedKeys="true"
+            keyProperty="id">
         INSERT INTO tag(name,
-                             create_time,
-                             update_time,
-                             is_deleted,
-                             articles_total)
+                        create_time,
+                        update_time,
+                        is_deleted,
+                        articles_total)
         VALUES (#{name}, now(), now(), 0, 0)
     </insert>
     <insert id="batchInsert" parameterType="java.util.List">
         INSERT INTO tag(name,
-                    create_time,
-                    update_time,
-                    is_deleted,
-                    articles_total)
+        create_time,
+        update_time,
+        is_deleted,
+        articles_total)
         VALUES
         <foreach collection="tags" item="tag" separator=",">
             (#{tag}, now(), now(), 0, 0)

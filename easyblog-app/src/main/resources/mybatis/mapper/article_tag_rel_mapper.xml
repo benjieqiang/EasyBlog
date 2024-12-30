@@ -13,6 +13,15 @@
         values (#{articleId}, #{tagId})
     </insert>
 
+    <insert id="insertBatch" parameterType="list">
+        insert into article_tag_rel(article_id,
+        tag_id)
+        values
+        <foreach collection="list" item="tag" separator=",">
+            (#{tag.articleId}, #{tag.tagId})
+        </foreach>
+    </insert>
+
     <delete id="deleteByArticleId" parameterType="Long">
         delete
         from article_tag_rel
