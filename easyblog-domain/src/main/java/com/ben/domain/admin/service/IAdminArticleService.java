@@ -1,6 +1,8 @@
 package com.ben.domain.admin.service;
 
 import com.ben.domain.admin.model.entity.ArticleEntity;
+import com.ben.domain.admin.model.entity.ArticlePageEntity;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @Author: benjieqiang
@@ -14,4 +16,7 @@ public interface IAdminArticleService {
     void publishArticle(ArticleEntity articleEntity);
 
     void deleteArticle(Long id);
+
+    PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity)
+            ;
 }

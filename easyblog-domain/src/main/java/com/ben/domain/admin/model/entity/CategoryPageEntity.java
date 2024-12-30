@@ -19,9 +19,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryPageEntity {
-    Integer pageNum;
-    Integer pageSize;
-    String name;
-    LocalDateTime startDate;
-    LocalDateTime endDate;
+    private Integer pageNum;
+    private Integer pageSize;
+    private String name;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 }

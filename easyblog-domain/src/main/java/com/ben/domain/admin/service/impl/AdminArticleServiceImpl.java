@@ -1,8 +1,10 @@
 package com.ben.domain.admin.service.impl;
 
 import com.ben.domain.admin.model.entity.ArticleEntity;
+import com.ben.domain.admin.model.entity.ArticlePageEntity;
 import com.ben.domain.admin.repository.IAdminArticleRepository;
 import com.ben.domain.admin.service.IAdminArticleService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,10 @@ public class AdminArticleServiceImpl implements IAdminArticleService {
     @Override
     public void deleteArticle(Long id) {
         articleRepository.deleteArticleById(id);
+    }
+
+    @Override
+    public PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity) {
+        return articleRepository.findArticlePageList(articlePageEntity);
     }
 }

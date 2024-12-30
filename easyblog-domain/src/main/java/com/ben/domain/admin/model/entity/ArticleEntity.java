@@ -35,4 +35,13 @@ public class ArticleEntity {
     private Long categoryId;
     /* 标签列表 */
     private List<String> tags;
+    /**
+     * 发布时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 是否置顶
+     */
+    private Boolean isTop;
 }

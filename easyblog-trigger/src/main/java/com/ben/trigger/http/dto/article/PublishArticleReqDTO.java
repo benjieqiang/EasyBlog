@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ApiModel(value = "发布文章 VO")
+@ApiModel(value = "发布文章 DTO")
 public class PublishArticleReqDTO {
 
     @NotBlank(message = "文章标题不能为空")

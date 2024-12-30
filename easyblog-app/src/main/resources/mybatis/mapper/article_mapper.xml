@@ -74,7 +74,7 @@
         <if test="type != null">
             AND type = #{type}
         </if>
-        ORDER BY create_time DESC
+        ORDER BY weight DESC, create_time DESC
     </select>
 
     <select id="selectPageListByArticleIds" resultMap="articleMap">

@@ -1,11 +1,15 @@
 package com.ben.infrastructure.persistent.repository;
 
 import com.ben.domain.admin.model.entity.ArticleEntity;
+import com.ben.domain.admin.model.entity.ArticlePageEntity;
+import com.ben.domain.admin.model.entity.CategoryEntity;
 import com.ben.domain.admin.repository.IAdminArticleRepository;
 import com.ben.infrastructure.persistent.dao.*;
 import com.ben.infrastructure.persistent.po.*;
 import com.ben.types.enums.ResponseCode;
 import com.ben.types.exception.BizException;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +17,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -199,5 +201,33 @@ public class AdminArticleRepository implements IAdminArticleRepository {
                 throw new BizException(ResponseCode.ARTICLE_DELETE_FAILED);
             }
         });
+    }
+
+    @Override
+    public PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity) {
+        Integer pageNum = articlePageEntity.getPageNum();
+        Integer pageSize = articlePageEntity.getPageSize();
+        String title = articlePageEntity.getTitle();
+        Integer type = articlePageEntity.getType();
+        LocalDateTime startDate = articlePageEntity.getStartDate();
+        LocalDateTime endDate = articlePageEntity.getEndDate();
+        // 开启分页
+        PageHelper.startPage(pageNum, pageSize);
+
+        List<Article> articles = articleDao.selectPageList(title, startDate, endDate, type);
+        if (articles == null) return null;
+        List<ArticleEntity> articleEntities = new ArrayList<>(articles.size());
+        for (Article article: articles) {
+            ArticleEntity articleEntity = ArticleEntity.builder()
+                    .articleId(article.getId())
+                    .title(article.getTitle())
+                    .cover(article.getCover())
+                    .createTime(article.getCreateTime())
+                    .isTop(article.getWeight() > 0)
+                    .build();
+            articleEntities.add(articleEntity);
+        }
+        return new PageInfo<>(articleEntities);
+
     }
 }

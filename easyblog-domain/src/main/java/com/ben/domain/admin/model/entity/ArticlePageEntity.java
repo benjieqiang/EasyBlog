@@ -10,18 +10,34 @@ import java.time.LocalDateTime;
 
 /**
  * @Author: benjieqiang
- * @CreateTime: 2024-12-12  15:42
- * @Description: 分页查询聚合对象
+ * @CreateTime: 2024-12-30  20:48
+ * @Description: 文章分页查询对象
  * @Version: 1.0
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TagPageEntity {
-    private Integer pageNum;
-    private Integer pageSize;
-    private String name;
+public class ArticlePageEntity {
+    Integer pageNum;
+    Integer pageSize;
+    /**
+     * 文章标题
+     */
+    private String title;
+
+    /**
+     * 发布的起始日期
+     */
     private LocalDateTime startDate;
+
+    /**
+     * 发布的结束日期
+     */
     private LocalDateTime endDate;
+
+    /**
+     * 文章类型
+     */
+    private Integer type = 1;
 }
