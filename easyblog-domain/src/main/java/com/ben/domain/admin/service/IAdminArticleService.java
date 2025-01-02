@@ -1,5 +1,6 @@
 package com.ben.domain.admin.service;
 
+import com.ben.domain.admin.model.aggregate.ArticleDetailAggregate;
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.model.entity.ArticlePageEntity;
 import com.github.pagehelper.PageInfo;
@@ -19,5 +20,5 @@ public interface IAdminArticleService {
 
     PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity);
 
-    ArticleEntity findArticleDetail(Long articleId);
+    ArticleDetailAggregate findArticleDetail(Long articleId);
 }

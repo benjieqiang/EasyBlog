@@ -1,5 +1,6 @@
 package com.ben.infrastructure.persistent.repository;
 
+import com.ben.domain.admin.model.aggregate.ArticleDetailAggregate;
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.model.entity.ArticlePageEntity;
 import com.ben.domain.admin.model.entity.CategoryEntity;
@@ -54,8 +55,7 @@ public class AdminArticleRepository implements IAdminArticleRepository {
     @Override
     public void publishArticle(ArticleEntity articleEntity) {
         Long categoryId = articleEntity.getCategoryId();
-        List<Long> tags = articleEntity.getTagIds();
-        List<String> tagIds = tags.stream().map(String::valueOf).collect(Collectors.toList());
+        List<String> tags = articleEntity.getTags();
 
         // 0. 分类id是否存在
         Category category = categoryDao.selectByCategoryId(categoryId);
@@ -90,7 +90,7 @@ public class AdminArticleRepository implements IAdminArticleRepository {
                         .build();
                 articleCategoryRelDao.insert(articleCategoryRel);
                 // 4. 批量插入文章tag
-                insertTags(articleId, tagIds);
+                insertTags(articleId, tags);
                 return 1;
             } catch (Exception e) {
                 status.setRollbackOnly();
@@ -233,7 +233,7 @@ public class AdminArticleRepository implements IAdminArticleRepository {
     }
 
     @Override
-    public ArticleEntity findArticleDetail(Long articleId) {
+    public ArticleDetailAggregate findArticleDetail(Long articleId) {
 
         // 1. 查询文章表详情；
         Article article = articleDao.selectByArticleId(articleId);
@@ -250,7 +250,7 @@ public class AdminArticleRepository implements IAdminArticleRepository {
         // 获取对应标签 ID 集合
         List<Long> tagIds = articleTagRels.stream().map(ArticleTagRel::getTagId).collect(Collectors.toList());
 
-        return ArticleEntity.builder()
+        return ArticleDetailAggregate.builder()
                 .articleId(articleId)
                 .title(article.getTitle())
                 .cover(article.getCover())

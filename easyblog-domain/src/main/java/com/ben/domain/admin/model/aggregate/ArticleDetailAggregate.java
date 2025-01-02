@@ -1,4 +1,4 @@
-package com.ben.domain.admin.model.entity;
+package com.ben.domain.admin.model.aggregate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * @Author: benjieqiang
  * @CreateTime: 2024-12-14  20:41
- * @Description: 文章
+ * @Description: 文章详情聚合
  * @Version: 1.0
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleEntity {
+public class ArticleDetailAggregate {
     /* 文章id */
     private Long articleId;
     /* 文章标题 */
@@ -34,14 +34,5 @@ public class ArticleEntity {
     /* 分类id */
     private Long categoryId;
     /* 标签列表 */
-    private List<String> tags;
-    /**
-     * 发布时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 是否置顶
-     */
-    private Boolean isTop;
+    private List<Long> tagIds;
 }

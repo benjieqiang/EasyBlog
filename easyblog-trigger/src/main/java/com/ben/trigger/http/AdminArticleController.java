@@ -1,5 +1,6 @@
 package com.ben.trigger.http;
 
+import com.ben.domain.admin.model.aggregate.ArticleDetailAggregate;
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.model.entity.ArticlePageEntity;
 import com.ben.domain.admin.service.IAdminArticleService;
@@ -50,7 +51,7 @@ public class AdminArticleController {
                 .cover(request.getCover())
                 .summary(request.getSummary())
                 .categoryId(request.getCategoryId())
-                .tagIds(request.getTags().stream().map(Long::valueOf).collect(Collectors.toList()))
+                .tags(request.getTags())
                 .build();
         try {
             articleService.publishArticle(articleEntity);
@@ -112,15 +113,15 @@ public class AdminArticleController {
     @ApiOperationLog(description = "查询文章详情")
     public Response findArticleDetail(@RequestBody @Validated FindArticleDetailReqDTO request) {
         Long articleId = request.getId();
-        ArticleEntity articleEntity = articleService.findArticleDetail(articleId);
+        ArticleDetailAggregate articleDetail = articleService.findArticleDetail(articleId);
         FindArticleDetailRspDTO articleDetailRspDTO = FindArticleDetailRspDTO.builder()
-                .id(articleEntity.getArticleId())
-                .title(articleEntity.getTitle())
-                .cover(articleEntity.getCover())
-                .content(articleEntity.getContent())
-                .summary(articleEntity.getSummary())
-                .categoryId(articleEntity.getCategoryId())
-                .tagIds(articleEntity.getTagIds())
+                .id(articleDetail.getArticleId())
+                .title(articleDetail.getTitle())
+                .cover(articleDetail.getCover())
+                .content(articleDetail.getContent())
+                .summary(articleDetail.getSummary())
+                .categoryId(articleDetail.getCategoryId())
+                .tagIds(articleDetail.getTagIds())
                 .build();
         return Response.success(articleDetailRspDTO);
     }

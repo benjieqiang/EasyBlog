@@ -1,5 +1,6 @@
 package com.ben.domain.admin.service.impl;
 
+import com.ben.domain.admin.model.aggregate.ArticleDetailAggregate;
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.model.entity.ArticlePageEntity;
 import com.ben.domain.admin.repository.IAdminArticleRepository;
@@ -36,7 +37,7 @@ public class AdminArticleServiceImpl implements IAdminArticleService {
     }
 
     @Override
-    public ArticleEntity findArticleDetail(Long articleId) {
+    public ArticleDetailAggregate findArticleDetail(Long articleId) {
         return articleRepository.findArticleDetail(articleId);
     }
 }
