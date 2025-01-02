@@ -21,7 +21,7 @@ public interface IArticleContentDao {
     /* 根据文章 ID 查询 */
     ArticleContent selectByArticleId(Long articleId);
 
-    /* 通过文章 ID 更新  */
-    int updateByArticleId(ArticleContent articleContent);
+    /* 更新  */
+    int update(ArticleContent articleContent);
 }
 

@@ -1,11 +1,9 @@
 package com.ben.infrastructure.persistent.dao;
 
 import com.ben.infrastructure.persistent.po.Article;
-import com.ben.infrastructure.persistent.po.ArticleContent;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +20,8 @@ public interface IArticleDao {
     void insert(Article article);
     /* 删除 */
     int deleteByArticleId(Long articleId);
+    /* 根据文章id更新 */
+    int update(Article article);
 
     /* 根据文章id查询 */
     Article selectByArticleId(Long articleId);

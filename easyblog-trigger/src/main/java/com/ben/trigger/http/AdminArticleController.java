@@ -125,4 +125,26 @@ public class AdminArticleController {
                 .build();
         return Response.success(articleDetailRspDTO);
     }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "更新文章")
+    @ApiOperationLog(description = "更新文章")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Response updateArticle(@RequestBody @Validated UpdateArticleReqDTO request) {
+        ArticleEntity articleEntity = ArticleEntity.builder()
+                .articleId(request.getArticleId())
+                .title(request.getTitle())
+                .content(request.getContent())
+                .cover(request.getCover())
+                .summary(request.getSummary())
+                .categoryId(request.getCategoryId())
+                .tags(request.getTags())
+                .build();
+        try {
+            articleService.updateArticle(articleEntity);
+        } catch (Exception e) {
+            return Response.fail(ResponseCode.ARTICLE_UPDATED_FAILED);
+        }
+        return Response.success();
+    }
 }

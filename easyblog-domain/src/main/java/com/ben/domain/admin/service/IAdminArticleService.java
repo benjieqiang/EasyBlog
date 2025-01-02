@@ -21,4 +21,6 @@ public interface IAdminArticleService {
     PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity);
 
     ArticleDetailAggregate findArticleDetail(Long articleId);
+
+    void updateArticle(ArticleEntity articleEntity);
 }

@@ -14,7 +14,7 @@
         values (#{articleId}, #{content})
     </insert>
 
-    <update id="updateByArticleId" parameterType="com.ben.infrastructure.persistent.po.ArticleContent">
+    <update id="update" parameterType="com.ben.infrastructure.persistent.po.ArticleContent">
         update article_content
         set content = #{content}
         where article_id = #{articleId}

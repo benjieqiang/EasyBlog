@@ -47,11 +47,11 @@ public class ArticleContentDaoTest {
 
     /* 通过文章 ID 更新  */
     @Test
-    public void test_updateByArticleId() {
+    public void test_update() {
         ArticleContent articleContent = new ArticleContent();
         articleContent.setArticleId(23L);
         articleContent.setContent("测试哈哈哈更新哈哈");
-        int count = articleContentDao.updateByArticleId(articleContent);
+        int count = articleContentDao.update(articleContent);
         log.info("测试结果{}", count);
     }
 }

@@ -3,7 +3,6 @@ package com.ben.infrastructure.persistent.repository;
 import com.ben.domain.admin.model.aggregate.ArticleDetailAggregate;
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.model.entity.ArticlePageEntity;
-import com.ben.domain.admin.model.entity.CategoryEntity;
 import com.ben.domain.admin.repository.IAdminArticleRepository;
 import com.ben.infrastructure.persistent.dao.*;
 import com.ben.infrastructure.persistent.po.*;
@@ -234,7 +233,6 @@ public class AdminArticleRepository implements IAdminArticleRepository {
 
     @Override
     public ArticleDetailAggregate findArticleDetail(Long articleId) {
-
         // 1. 查询文章表详情；
         Article article = articleDao.selectByArticleId(articleId);
         if (Objects.isNull(article)) {
@@ -259,5 +257,59 @@ public class AdminArticleRepository implements IAdminArticleRepository {
                 .categoryId(articleCategoryRel.getCategoryId())
                 .tagIds(tagIds)
                 .build();
+    }
+
+    @Override
+    public void updateArticle(ArticleEntity articleEntity) {
+        Long articleId = articleEntity.getArticleId();
+        Long categoryId = articleEntity.getCategoryId();
+        List<String> tags = articleEntity.getTags();
+        ArticleContent articleContent = ArticleContent.builder()
+                .content(articleEntity.getContent())
+                .articleId(articleId)
+                .build();
+
+        Article article = Article.builder()
+                .id(articleId)
+                .title(articleEntity.getTitle())
+                .cover(articleEntity.getCover())
+                .summary(articleEntity.getSummary())
+                .build();
+
+        transactionTemplate.execute(status -> {
+            try {
+                // 1. 更新文章表；失败则抛异常；
+                int count = articleDao.update(article);
+                if (count == 0) {
+                    log.warn("==> 该文章不存在, articleId: {}", articleId);
+                    throw new BizException(ResponseCode.ARTICLE_NOT_FOUND);
+                }
+                // 2. 更新content表；
+                articleContentDao.update(articleContent);
+
+                // 3. 更新文章分类表: 先查分类是否存在，存在则删除老分类，不存在直接抛异常
+                ArticleCategoryRel articleCategoryRel = articleCategoryRelDao.selectByArticleId(articleId);
+                if (Objects.isNull(articleCategoryRel)) {
+                    log.warn("==> 分类不存在, categoryId: {}", categoryId);
+                    throw new BizException(ResponseCode.CATEGORY_NOT_EXISTED);
+                }
+                articleCategoryRelDao.deleteByArticleId(articleId);
+                ArticleCategoryRel categoryRel = ArticleCategoryRel.builder()
+                        .articleId(articleId)
+                        .categoryId(categoryId)
+                        .build();
+                articleCategoryRelDao.insert(categoryRel);
+
+                // 4. 更新文章标签表: 先删除老标签关联，再插入新标签(插入时不存在的标签重新插入)
+                articleTagRelDao.deleteByArticleId(articleId);
+                insertTags(articleId, tags);
+                return 1;
+            } catch (Exception e) {
+                status.setRollbackOnly();
+                log.error("更新文章记录，失败", e);
+                throw new BizException(ResponseCode.ARTICLE_UPDATED_FAILED);
+            }
+        });
+
     }
 }

@@ -40,4 +40,9 @@ public class AdminArticleServiceImpl implements IAdminArticleService {
     public ArticleDetailAggregate findArticleDetail(Long articleId) {
         return articleRepository.findArticleDetail(articleId);
     }
+
+    @Override
+    public void updateArticle(ArticleEntity articleEntity) {
+        articleRepository.updateArticle(articleEntity);
+    }
 }

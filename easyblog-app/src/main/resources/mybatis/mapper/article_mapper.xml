@@ -15,7 +15,8 @@
         <result column="type" property="type"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Article" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Article" useGeneratedKeys="true"
+            keyProperty="id">
         INSERT INTO article(title,
                             cover,
                             summary,
@@ -31,7 +32,8 @@
     <update id="deleteByArticleId" parameterType="Long">
         update article
         set is_deleted = 1
-        where id = #{articleId} and is_deleted = 0
+        where id = #{articleId}
+          and is_deleted = 0
     </update>
 
     <select id="selectByArticleId" resultMap="articleMap">
@@ -140,8 +142,7 @@
                type
         from article
         where id &gt; #{id}
-        order by id
-            limit 1
+        order by id limit 1
     </select>
 
     <update id="increaseReadNum" parameterType="Long">
@@ -170,6 +171,14 @@
         <foreach item="id" collection="ids" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </update>
+    <update id="update" parameterType="com.ben.infrastructure.persistent.po.Article">
+        update article
+        set title=#{title},
+            cover=#{cover},
+            summary=#{summary},
+            update_time=now()
+        where id = #{id}
     </update>
 
 </mapper>

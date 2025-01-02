@@ -41,6 +41,11 @@ public class ArticleEntity {
     private LocalDateTime createTime;
 
     /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
+
+    /**
      * 是否置顶
      */
     private Boolean isTop;

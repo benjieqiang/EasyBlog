@@ -1,19 +1,14 @@
 package com.ben.test.infrastructure.dao;
 
-import com.ben.domain.admin.model.entity.CategoryEntity;
-import com.ben.domain.admin.model.entity.CategoryPageEntity;
 import com.ben.infrastructure.persistent.dao.IArticleDao;
 import com.ben.infrastructure.persistent.po.Article;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +46,19 @@ public class ArticleDaoTest {
         int count = articleDao.deleteByArticleId(deleteId);
         log.info("测试结果: {}", count);
     }
+    /* 更新 */
+    @Test
+    public void test_updateByArticleId() {
+        Article article = Article.builder()
+                .id(33L)
+                .title("测试更新")
+                .cover("https://23423423.png")
+                .summary("测试更新哈哈")
+                .build();
+        int count = articleDao.update(article);
+        log.info("测试结果: {}", count);
+    }
+
 
     /* 查询最大权重值记录 */
     @Test
