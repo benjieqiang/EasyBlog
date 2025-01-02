@@ -147,4 +147,15 @@ public class AdminArticleController {
         }
         return Response.success();
     }
+
+    @PostMapping("/isTop/update")
+    @ApiOperation(value = "更新文章置顶状态")
+    @ApiOperationLog(description = "更新文章置顶状态")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Response updateArticleIsTop(@RequestBody @Validated UpdateArticleIsTopReqDTO request) {
+        Long articleId = request.getId();
+        Boolean isTop = request.getIsTop();
+        articleService.updateArticleIsTop(articleId, isTop);
+        return Response.success();
+    }
 }

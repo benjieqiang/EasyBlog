@@ -23,4 +23,6 @@ public interface IAdminArticleService {
     ArticleDetailAggregate findArticleDetail(Long articleId);
 
     void updateArticle(ArticleEntity articleEntity);
+
+    void updateArticleIsTop(Long articleId, Boolean isTop);
 }

@@ -312,4 +312,18 @@ public class AdminArticleRepository implements IAdminArticleRepository {
         });
 
     }
+
+    @Override
+    public void updateArticleIsTop(Long articleId, Boolean isTop) {
+        Integer maxWeight = 0;
+        if (isTop) {
+            // 查询最大权重值；
+            Article maxWeightArticle = articleDao.selectMaxWeight();
+            maxWeight = maxWeightArticle.getWeight() + 1;
+        }
+
+        // 更新该文章id,置顶：最大权重+1，不置顶：weight置0；
+        Article article = Article.builder().id(articleId).weight(maxWeight).build();
+        articleDao.update(article);
+    }
 }

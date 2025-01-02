@@ -172,13 +172,36 @@
             #{id}
         </foreach>
     </update>
+
     <update id="update" parameterType="com.ben.infrastructure.persistent.po.Article">
-        update article
-        set title=#{title},
-            cover=#{cover},
-            summary=#{summary},
-            update_time=now()
-        where id = #{id}
+        UPDATE article
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="cover != null">
+                cover = #{cover},
+            </if>
+            <if test="summary != null">
+                summary = #{summary},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="readNum != null">
+                read_num = #{readNum},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        WHERE id = #{id}
     </update>
 
 </mapper>

@@ -45,4 +45,9 @@ public class AdminArticleServiceImpl implements IAdminArticleService {
     public void updateArticle(ArticleEntity articleEntity) {
         articleRepository.updateArticle(articleEntity);
     }
+
+    @Override
+    public void updateArticleIsTop(Long articleId, Boolean isTop) {
+        articleRepository.updateArticleIsTop(articleId, isTop);
+    }
 }
