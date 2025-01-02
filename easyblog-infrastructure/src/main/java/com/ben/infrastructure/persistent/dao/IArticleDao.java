@@ -23,6 +23,9 @@ public interface IArticleDao {
     /* 删除 */
     int deleteByArticleId(Long articleId);
 
+    /* 根据文章id查询 */
+    Article selectByArticleId(Long articleId);
+
     /* 查询最大权重值记录 */
     Article selectMaxWeight();
 

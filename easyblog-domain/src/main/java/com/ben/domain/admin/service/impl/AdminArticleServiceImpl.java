@@ -34,4 +34,9 @@ public class AdminArticleServiceImpl implements IAdminArticleService {
     public PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity) {
         return articleRepository.findArticlePageList(articlePageEntity);
     }
+
+    @Override
+    public ArticleEntity findArticleDetail(Long articleId) {
+        return articleRepository.findArticleDetail(articleId);
+    }
 }

@@ -54,7 +54,8 @@ public class AdminArticleRepository implements IAdminArticleRepository {
     @Override
     public void publishArticle(ArticleEntity articleEntity) {
         Long categoryId = articleEntity.getCategoryId();
-        List<String> tags = articleEntity.getTags();
+        List<Long> tags = articleEntity.getTagIds();
+        List<String> tagIds = tags.stream().map(String::valueOf).collect(Collectors.toList());
 
         // 0. 分类id是否存在
         Category category = categoryDao.selectByCategoryId(categoryId);
@@ -89,7 +90,7 @@ public class AdminArticleRepository implements IAdminArticleRepository {
                         .build();
                 articleCategoryRelDao.insert(articleCategoryRel);
                 // 4. 批量插入文章tag
-                insertTags(articleId, tags);
+                insertTags(articleId, tagIds);
                 return 1;
             } catch (Exception e) {
                 status.setRollbackOnly();
@@ -217,7 +218,7 @@ public class AdminArticleRepository implements IAdminArticleRepository {
         List<Article> articles = articleDao.selectPageList(title, startDate, endDate, type);
         if (articles == null) return null;
         List<ArticleEntity> articleEntities = new ArrayList<>(articles.size());
-        for (Article article: articles) {
+        for (Article article : articles) {
             ArticleEntity articleEntity = ArticleEntity.builder()
                     .articleId(article.getId())
                     .title(article.getTitle())
@@ -229,5 +230,34 @@ public class AdminArticleRepository implements IAdminArticleRepository {
         }
         return new PageInfo<>(articleEntities);
 
+    }
+
+    @Override
+    public ArticleEntity findArticleDetail(Long articleId) {
+
+        // 1. 查询文章表详情；
+        Article article = articleDao.selectByArticleId(articleId);
+        if (Objects.isNull(article)) {
+            log.warn("==> 查询的文章不存在，articleId: {}", articleId);
+            throw new BizException(ResponseCode.ARTICLE_NOT_FOUND);
+        }
+        // 2. 查询正文表详情
+        ArticleContent articleContent = articleContentDao.selectByArticleId(articleId);
+        // 3. 查询分类表；
+        ArticleCategoryRel articleCategoryRel = articleCategoryRelDao.selectByArticleId(articleId);
+        // 4. 查询标签列表集合；
+        List<ArticleTagRel> articleTagRels = articleTagRelDao.selectByArticleId(articleId);
+        // 获取对应标签 ID 集合
+        List<Long> tagIds = articleTagRels.stream().map(ArticleTagRel::getTagId).collect(Collectors.toList());
+
+        return ArticleEntity.builder()
+                .articleId(articleId)
+                .title(article.getTitle())
+                .cover(article.getCover())
+                .summary(article.getSummary())
+                .content(articleContent.getContent())
+                .categoryId(articleCategoryRel.getCategoryId())
+                .tagIds(tagIds)
+                .build();
     }
 }

@@ -18,12 +18,14 @@
         from article_category_rel
         where article_id = #{articleId}
     </delete>
-    <select id="selectByArticleId" resultType="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+
+    <select id="selectByArticleId" resultMap="articleCategoryRelMap">
         select id, article_id, category_id
         from article_category_rel
         where article_id = #{articleId}
     </select>
-    <select id="selectOneByCategoryId" resultType="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+
+    <select id="selectOneByCategoryId" resultMap="articleCategoryRelMap">
         select id, article_id, category_id
         from article_category_rel
         where category_id = #{categoryId} limit 1

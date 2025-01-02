@@ -17,6 +17,7 @@ public interface IAdminArticleService {
 
     void deleteArticle(Long id);
 
-    PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity)
-            ;
+    PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity);
+
+    ArticleEntity findArticleDetail(Long articleId);
 }

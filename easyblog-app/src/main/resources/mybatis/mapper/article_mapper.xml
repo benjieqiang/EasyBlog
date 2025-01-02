@@ -34,6 +34,22 @@
         where id = #{articleId} and is_deleted = 0
     </update>
 
+    <select id="selectByArticleId" resultMap="articleMap">
+        select id,
+               title,
+               cover,
+               summary,
+               create_time,
+               update_time,
+               is_deleted,
+               read_num,
+               weight,
+               type
+        from article
+        where id = #{articleId}
+    </select>
+
+
     <select id="selectMaxWeight" resultMap="articleMap">
         select id,
                title,
@@ -95,7 +111,7 @@
         </foreach>
     </select>
 
-    <select id="selectPreArticle" resultType="com.ben.infrastructure.persistent.po.Article">
+    <select id="selectPreArticle" resultMap="articleMap">
         select id,
                title,
                cover,
@@ -111,7 +127,7 @@
         order by id desc limit 1
     </select>
 
-    <select id="selectNextArticle" resultType="com.ben.infrastructure.persistent.po.Article">
+    <select id="selectNextArticle" resultMap="articleMap">
         select id,
                title,
                cover,

@@ -34,7 +34,7 @@ public class ArticleEntity {
     /* 分类id */
     private Long categoryId;
     /* 标签列表 */
-    private List<String> tags;
+    private List<Long> tagIds;
     /**
      * 发布时间
      */

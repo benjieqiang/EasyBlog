@@ -3,10 +3,7 @@ package com.ben.trigger.http;
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.model.entity.ArticlePageEntity;
 import com.ben.domain.admin.service.IAdminArticleService;
-import com.ben.trigger.http.dto.article.DeleteArticleReqDTO;
-import com.ben.trigger.http.dto.article.FindArticlePageListReqDTO;
-import com.ben.trigger.http.dto.article.FindArticlePageListRspDTO;
-import com.ben.trigger.http.dto.article.PublishArticleReqDTO;
+import com.ben.trigger.http.dto.article.*;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.enums.ResponseCode;
 import com.ben.types.response.PageResponse;
@@ -53,7 +50,7 @@ public class AdminArticleController {
                 .cover(request.getCover())
                 .summary(request.getSummary())
                 .categoryId(request.getCategoryId())
-                .tags(request.getTags())
+                .tagIds(request.getTags().stream().map(Long::valueOf).collect(Collectors.toList()))
                 .build();
         try {
             articleService.publishArticle(articleEntity);
@@ -108,5 +105,23 @@ public class AdminArticleController {
                 articlePageList.getSize(),
                 articlePageListRspDTOS
         );
+    }
+
+    @PostMapping("/detail")
+    @ApiOperation(value = "查询文章详情")
+    @ApiOperationLog(description = "查询文章详情")
+    public Response findArticleDetail(@RequestBody @Validated FindArticleDetailReqDTO request) {
+        Long articleId = request.getId();
+        ArticleEntity articleEntity = articleService.findArticleDetail(articleId);
+        FindArticleDetailRspDTO articleDetailRspDTO = FindArticleDetailRspDTO.builder()
+                .id(articleEntity.getArticleId())
+                .title(articleEntity.getTitle())
+                .cover(articleEntity.getCover())
+                .content(articleEntity.getContent())
+                .summary(articleEntity.getSummary())
+                .categoryId(articleEntity.getCategoryId())
+                .tagIds(articleEntity.getTagIds())
+                .build();
+        return Response.success(articleDetailRspDTO);
     }
 }

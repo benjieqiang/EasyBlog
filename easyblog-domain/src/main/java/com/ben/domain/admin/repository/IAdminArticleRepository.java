@@ -16,4 +16,6 @@ public interface IAdminArticleRepository {
     void deleteArticleById(Long id);
 
     PageInfo<ArticleEntity> findArticlePageList(ArticlePageEntity articlePageEntity);
+
+    ArticleEntity findArticleDetail(Long articleId);
 }

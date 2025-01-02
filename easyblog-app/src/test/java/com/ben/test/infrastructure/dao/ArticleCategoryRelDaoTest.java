@@ -44,7 +44,7 @@ public class ArticleCategoryRelDaoTest {
     /* 根据文章 ID 来查询 */
     @Test
     public void test_selectByArticleId() {
-        ArticleCategoryRel articleCategoryRel = articleCategoryRelDao.selectByArticleId(12L);
+        ArticleCategoryRel articleCategoryRel = articleCategoryRelDao.selectByArticleId(29L);
         log.info("测试结果{}", articleCategoryRel);
     }
 
