@@ -33,7 +33,8 @@ public enum ResponseCode implements IBaseException {
     ARTICLE_PUBLISH_FAILED("20011", "文章发布失败！"),
     ARTICLE_DELETE_FAILED("20012", "文章删除失败！"),
     ARTICLE_NOT_FOUND("20013", "该文章不存在！"),
-    ARTICLE_UPDATED_FAILED("20014", "文章更新失败！")
+    ARTICLE_UPDATED_FAILED("20014", "文章更新失败！"),
+    CATEGORY_CAN_NOT_DELETE("20015", "该分类下包含文章，请先删除对应文章，才能删除！"),
 
     ;
 

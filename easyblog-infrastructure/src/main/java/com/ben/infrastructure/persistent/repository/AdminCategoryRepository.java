@@ -3,7 +3,9 @@ package com.ben.infrastructure.persistent.repository;
 import com.ben.domain.admin.model.entity.CategoryEntity;
 import com.ben.domain.admin.model.entity.CategoryPageEntity;
 import com.ben.domain.admin.repository.IAdminCategoryRepository;
+import com.ben.infrastructure.persistent.dao.IArticleCategoryRelDao;
 import com.ben.infrastructure.persistent.dao.ICategoryDao;
+import com.ben.infrastructure.persistent.po.ArticleCategoryRel;
 import com.ben.infrastructure.persistent.po.Category;
 import com.ben.types.enums.ResponseCode;
 import com.ben.types.exception.BizException;
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: benjieqiang
@@ -30,6 +33,9 @@ public class AdminCategoryRepository implements IAdminCategoryRepository {
 
     @Autowired
     private ICategoryDao categoryDao;
+
+    @Autowired
+    private IArticleCategoryRelDao articleCategoryRelDao;
 
     @Override
     public void insert(String name) {
@@ -68,9 +74,16 @@ public class AdminCategoryRepository implements IAdminCategoryRepository {
     }
 
     @Override
-    public int deleteCategory(Long id) {
-        // todo: 如果category下面有文章，不能删除，直接抛出异常；
-        return categoryDao.updateCategory(id);
+    public int deleteCategory(Long categoryId) {
+        // 校验该分类下是否已经有文章，若有，则提示需要先删除分类下所有文章，才能删除
+        ArticleCategoryRel articleCategoryRel = articleCategoryRelDao.selectOneByCategoryId(categoryId);
+
+        if (Objects.nonNull(articleCategoryRel)) {
+            log.warn("==> 此分类下包含文章，无法删除，categoryId: {}", categoryId);
+            throw new BizException(ResponseCode.CATEGORY_CAN_NOT_DELETE);
+        }
+
+        return categoryDao.updateCategory(categoryId);
     }
 
     @Override
