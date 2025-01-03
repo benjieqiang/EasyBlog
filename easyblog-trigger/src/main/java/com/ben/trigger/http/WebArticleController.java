@@ -6,7 +6,6 @@ import com.ben.domain.web.model.entity.IndexArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
 import com.ben.domain.web.service.IArticleService;
 import com.ben.trigger.http.dto.article.*;
-import com.ben.trigger.http.dto.common.SelectRspDTO;
 import com.ben.trigger.http.dto.tag.FindIndexTagRspDTO;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.response.PageResponse;
@@ -55,7 +54,7 @@ public class WebArticleController {
                         .id(articleEntity.getId())
                         .cover(articleEntity.getCover())
                         .title(articleEntity.getTitle())
-                        .createTime(articleEntity.getCreateTime())
+                        .createTime(articleEntity.getCreateTime().toLocalDate())
                         .categoryId(articleEntity.getCategoryId())
                         .categoryName(articleEntity.getCategoryName())
                         .tags(articleEntity.getTags().stream().map(

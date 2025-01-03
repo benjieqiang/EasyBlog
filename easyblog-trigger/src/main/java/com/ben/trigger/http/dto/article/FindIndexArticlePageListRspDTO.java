@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,9 +37,9 @@ public class FindIndexArticlePageListRspDTO {
     private String cover;
 
     /**
-     * 发布时间
+     * 发布时间，显示日期
      */
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
     /* 摘要 */
     private String summary;
