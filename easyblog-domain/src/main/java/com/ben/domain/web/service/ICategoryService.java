@@ -13,6 +13,6 @@ import java.util.List;
 
 public interface ICategoryService {
 
-    List<CategoryEntity> findCategorySelectList();
+    List<CategoryEntity> findCategorySelectList(Long size);
 }
 

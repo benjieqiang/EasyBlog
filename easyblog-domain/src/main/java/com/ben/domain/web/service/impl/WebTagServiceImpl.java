@@ -22,7 +22,7 @@ public class WebTagServiceImpl implements IWebTagService {
     private ITagRepository tagRepository;
 
     @Override
-    public List<TagEntity> findTagSelectList() {
-        return tagRepository.findTagSelectList();
+    public List<TagEntity> findTagSelectList(Long size) {
+        return tagRepository.findTagSelectList(size);
     }
 }

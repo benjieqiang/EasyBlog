@@ -32,5 +32,7 @@ public interface ICategoryDao {
     List<Category> selectPageList(@Param("name") String name,
                                   @Param("startDate") LocalDateTime startDate,
                                   @Param("endDate") LocalDateTime endDate);
+
+    List<Category> selectByLimit(Long size);
 }
 

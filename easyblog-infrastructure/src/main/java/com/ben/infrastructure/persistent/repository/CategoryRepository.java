@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: benjieqiang
@@ -25,8 +26,16 @@ public class CategoryRepository implements ICategoryRepository {
     private ICategoryDao categoryDao;
 
     @Override
-    public List<CategoryEntity> findCategorySelectList() {
-        List<Category> categoryList = categoryDao.findCategoryList();
+    public List<CategoryEntity> findCategorySelectList(Long size) {
+        List<Category> categoryList = null;
+        // 如果接口入参中未指定 size
+        if (Objects.isNull(size) || size == 0) {
+            // 查询所有分类
+            categoryList = categoryDao.findCategoryList();
+        } else {
+            // 否则查询指定的数量
+            categoryList = categoryDao.selectByLimit(size);
+        }
         if (categoryList == null) return null;
         List<CategoryEntity> categoryEntities = new ArrayList<>();
         for (Category category : categoryList) {

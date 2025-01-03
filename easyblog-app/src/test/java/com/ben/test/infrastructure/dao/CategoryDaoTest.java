@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author: benjieqiang
@@ -29,4 +30,11 @@ public class CategoryDaoTest {
         Category category = categoryDao.selectByCategoryId(20L);
         log.info("测试结果：{}", category);
     }
+
+    @Test
+    public void test_selectByLimit() {
+        List<Category> categories = categoryDao.selectByLimit(3L);
+        log.info("测试结果：{}", categories);
+    }
+
 }

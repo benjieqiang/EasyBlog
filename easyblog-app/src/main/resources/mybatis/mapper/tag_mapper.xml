@@ -43,8 +43,15 @@
         select id, name, create_time, update_time, articles_total
         from tag
         where is_deleted = 0
+        order by articles_total desc
     </select>
-
+    <select id="selectByLimit" resultMap="tagMap">
+        select id, name, create_time, update_time, articles_total
+        FROM tag
+        WHERE is_deleted = 0
+        order by articles_total desc
+            limit #{size}
+    </select>
     <select id="selectPageList" resultMap="tagMap">
         SELECT id, name, create_time, update_time, articles_total FROM tag
         WHERE is_deleted = 0

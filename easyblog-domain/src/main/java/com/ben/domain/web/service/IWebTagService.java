@@ -12,6 +12,6 @@ import java.util.List;
  */
 
 public interface IWebTagService {
-    List<TagEntity> findTagSelectList();
+    List<TagEntity> findTagSelectList(Long size);
 }
 

@@ -13,5 +13,5 @@ import java.util.List;
 public interface ITagRepository {
 
     /* 查询所有标签 */
-    List<TagEntity> findTagSelectList();
+    List<TagEntity> findTagSelectList(Long size);
 }

@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface ICategoryRepository {
 
-    List<CategoryEntity> findCategorySelectList();
+    List<CategoryEntity> findCategorySelectList(Long size);
 }

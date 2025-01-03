@@ -20,8 +20,8 @@ public class CategoryServiceImpl implements ICategoryService {
     private ICategoryRepository categoryRepository;
 
     @Override
-    public List<CategoryEntity> findCategorySelectList() {
+    public List<CategoryEntity> findCategorySelectList(Long size) {
 
-        return categoryRepository.findCategorySelectList();
+        return categoryRepository.findCategorySelectList(size);
     }
 }

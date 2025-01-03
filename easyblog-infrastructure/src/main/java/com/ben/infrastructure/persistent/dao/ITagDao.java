@@ -1,5 +1,6 @@
 package com.ben.infrastructure.persistent.dao;
 
+import com.ben.domain.web.model.entity.TagEntity;
 import com.ben.infrastructure.persistent.po.Category;
 import com.ben.infrastructure.persistent.po.Tag;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,4 +32,6 @@ public interface ITagDao {
                              @Param("endDate") LocalDateTime endDate);
 
     List<Tag> selectByIds(List<Long> ids);
+
+    List<Tag> selectByLimit(Long size);
 }

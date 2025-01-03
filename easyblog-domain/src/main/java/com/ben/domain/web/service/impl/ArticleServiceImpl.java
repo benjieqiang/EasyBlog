@@ -1,7 +1,6 @@
 package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
-import com.ben.domain.web.model.entity.ArticleEntity;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
 import com.ben.domain.web.repository.IArticleRepository;
 import com.ben.domain.web.service.IArticleService;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class IArticleServiceImpl implements IArticleService {
+public class ArticleServiceImpl implements IArticleService {
 
     @Autowired
     private IArticleRepository articleRepository;

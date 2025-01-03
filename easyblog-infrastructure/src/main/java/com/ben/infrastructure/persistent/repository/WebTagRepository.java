@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -24,8 +25,16 @@ public class WebTagRepository implements ITagRepository {
     private ITagDao tagDao;
 
     @Override
-    public List<TagEntity> findTagSelectList() {
-        List<Tag> tagList = tagDao.findTagList();
+    public List<TagEntity> findTagSelectList(Long size) {
+        List<Tag> tagList = null;
+        // 如果接口入参中未指定 size
+        if (Objects.isNull(size) || size == 0) {
+            // 查询所有分类
+            tagList = tagDao.findTagList();
+        } else {
+            // 否则查询指定的数量
+            tagList = tagDao.selectByLimit(size);
+        }
         if (tagList == null) return null;
         return tagList.stream().map(
                 tag -> TagEntity.builder()
