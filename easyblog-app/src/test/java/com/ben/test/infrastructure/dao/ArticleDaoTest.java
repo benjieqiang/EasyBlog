@@ -2,6 +2,8 @@ package com.ben.test.infrastructure.dao;
 
 import com.ben.infrastructure.persistent.dao.IArticleDao;
 import com.ben.infrastructure.persistent.po.Article;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,6 +80,15 @@ public class ArticleDaoTest {
 
         List<Article> articleList = articleDao.selectPageList(title, beginDate, null, null);
         log.info("测试结果：{}", articleList);
+    }
+
+    /* 分页查询 */
+    @Test
+    public void test_selectPageList2() {
+        // 开启分页
+        PageHelper.startPage(1, 2);
+        List<Article> articleList = articleDao.selectPageList(null, null, null, null);
+        log.info("测试结果：{}", new PageInfo<>(articleList));
     }
 
     /* 根据文章 ID 批量分页查询 */

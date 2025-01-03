@@ -21,6 +21,8 @@ public interface ICategoryDao {
 
     Category selectByCategoryId(Long id);
 
+    List<Category> selectByCategoryIds(List<Long> ids);
+
     void insert(String name);
 
     int updateCategory(Long id);

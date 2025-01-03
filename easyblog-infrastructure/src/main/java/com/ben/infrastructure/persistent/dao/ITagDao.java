@@ -29,4 +29,6 @@ public interface ITagDao {
     List<Tag> selectPageList(@Param("name") String name,
                              @Param("startDate") LocalDateTime startDate,
                              @Param("endDate") LocalDateTime endDate);
+
+    List<Tag> selectByIds(List<Long> ids);
 }

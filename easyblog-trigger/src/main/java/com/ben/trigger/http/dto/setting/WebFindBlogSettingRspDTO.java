@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FindBlogSettingRspDTO {
+public class WebFindBlogSettingRspDTO {
     /* 博客Logo */
     private String logo;
     /* 博客名称 */
@@ -36,8 +36,4 @@ public class FindBlogSettingRspDTO {
     private String zhihuHomepage;
     /* 博主邮箱地址 */
     private String mail;
-    /* 是否开启评论敏感词过滤, 0:不开启；1：开启 */
-    private Boolean isCommentSensiWordOpen;
-    /* 是否开启评论审核, 0: 未开启；1：开启 */
-    private Boolean isCommentExamineOpen;
 }

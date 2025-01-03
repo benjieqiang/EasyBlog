@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,7 +90,7 @@ public class AdminCategoryController {
         return Response.success();
     }
 
-    @PostMapping("/select/list")
+    @GetMapping("/select/list")
     @ApiOperation(value = "获取分类 Select 下拉列表数据")
     @ApiOperationLog(description = "获取分类 Select 下拉列表数据")
     public Response findCategorySelectList() {

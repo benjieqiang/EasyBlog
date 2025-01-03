@@ -2,7 +2,7 @@ package com.ben.trigger.http;
 
 import com.ben.domain.admin.model.entity.BlogSettingEntity;
 import com.ben.domain.admin.service.IAdminBlogSettingService;
-import com.ben.trigger.http.dto.setting.FindBlogSettingRspDTO;
+import com.ben.trigger.http.dto.setting.AdminFindBlogSettingRspDTO;
 import com.ben.trigger.http.dto.setting.UpdateBlogSettingReqDTO;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.response.Response;
@@ -58,7 +58,7 @@ public class AdminBlogSettingController {
     @ApiOperationLog(description = "获取博客设置详情")
     public Response findDetail() {
         BlogSettingEntity detail = blogSettingService.findDetail(1L);
-        FindBlogSettingRspDTO blogSettingRspDTO = FindBlogSettingRspDTO.builder()
+        AdminFindBlogSettingRspDTO blogSettingRspDTO = AdminFindBlogSettingRspDTO.builder()
                 .logo(detail.getLogo())
                 .name(detail.getName())
                 .author(detail.getAuthor())

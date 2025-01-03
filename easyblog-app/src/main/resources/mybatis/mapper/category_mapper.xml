@@ -60,4 +60,14 @@
         where id = #{id}
           and is_deleted = 0
     </select>
+
+    <select id="selectByCategoryIds" resultMap="categoryMap">
+        select id, name, create_time, update_time, articles_total
+        from category
+        where is_deleted = 0 and
+        id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>
