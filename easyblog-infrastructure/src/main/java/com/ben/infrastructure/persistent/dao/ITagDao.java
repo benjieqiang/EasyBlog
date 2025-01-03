@@ -1,7 +1,5 @@
 package com.ben.infrastructure.persistent.dao;
 
-import com.ben.domain.web.model.entity.TagEntity;
-import com.ben.infrastructure.persistent.po.Category;
 import com.ben.infrastructure.persistent.po.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,6 +16,8 @@ import java.util.List;
 @Mapper
 public interface ITagDao {
     List<Tag> selectByName(@Param("name") String name);
+
+    Tag selectById(Long id);
 
     void insert(Tag tag);
 

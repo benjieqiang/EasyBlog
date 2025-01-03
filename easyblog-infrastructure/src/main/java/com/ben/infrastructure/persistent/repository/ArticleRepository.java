@@ -1,10 +1,9 @@
 package com.ben.infrastructure.persistent.repository;
 
-import com.ben.domain.web.model.entity.IndexArticlePageEntity;
-import com.ben.domain.web.model.entity.TagEntity;
 import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
 import com.ben.domain.web.model.entity.ArticleEntity;
-import com.ben.domain.web.model.entity.CategoryEntity;
+import com.ben.domain.web.model.entity.IndexArticlePageEntity;
+import com.ben.domain.web.model.entity.TagEntity;
 import com.ben.domain.web.repository.IArticleRepository;
 import com.ben.infrastructure.persistent.dao.*;
 import com.ben.infrastructure.persistent.po.*;
@@ -28,7 +27,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component
-public class WebArticleRepository implements IArticleRepository {
+public class ArticleRepository implements IArticleRepository {
     @Autowired
     private IArticleDao articleDao;
     @Autowired

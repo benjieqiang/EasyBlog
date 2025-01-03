@@ -1,18 +1,28 @@
 package com.ben.trigger.http;
 
+import com.ben.domain.web.model.entity.CategoryArticlePageEntity;
+import com.ben.domain.web.model.entity.TagArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
 import com.ben.domain.web.service.IWebTagService;
-import com.ben.trigger.http.dto.common.SelectRspDTO;
+import com.ben.trigger.http.dto.category.FindWebCategoryArticlePageListReqDTO;
+import com.ben.trigger.http.dto.category.FindWebCategoryArticlePageListRspDTO;
+import com.ben.trigger.http.dto.tag.FindWebTagArticlePageListReqDTO;
+import com.ben.trigger.http.dto.tag.FindWebTagArticlePageListRspDTO;
 import com.ben.trigger.http.dto.tag.FindWebTagReqDTO;
 import com.ben.trigger.http.dto.tag.FindWebTagRspDTO;
 import com.ben.types.annotations.ApiOperationLog;
+import com.ben.types.response.PageResponse;
 import com.ben.types.response.Response;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,4 +61,30 @@ public class WebTagController {
         return Response.success(webTagRspDTOS);
     }
 
+    @PostMapping("/article/list")
+    @ApiOperation(value = "获取标签下文章分页数据")
+    @ApiOperationLog(description = "获取标签下文章分页数据")
+    public PageResponse findTagArticlePageList(@RequestBody @Validated FindWebTagArticlePageListReqDTO request) {
+
+        PageInfo<TagArticlePageEntity> tagArticlePageEntityPageInfo = tagService.findTagArticlePageList(request.getId(), request.getCurrent(), request.getSize());
+        List<TagArticlePageEntity> tagArticlePageEntities = tagArticlePageEntityPageInfo.getList();
+        List<FindWebTagArticlePageListRspDTO> rspDTOS = null;
+        if (!CollectionUtils.isEmpty(tagArticlePageEntities)) {
+            rspDTOS = tagArticlePageEntities.stream().map(categoryArticlePageEntity ->
+                    FindWebTagArticlePageListRspDTO.builder()
+                            .id(categoryArticlePageEntity.getId())
+                            .title(categoryArticlePageEntity.getTitle())
+                            .cover(categoryArticlePageEntity.getCover())
+                            .createDate(categoryArticlePageEntity.getCreateDate())
+                            .build()
+            ).collect(Collectors.toList());
+        }
+
+        return PageResponse.success(
+                tagArticlePageEntityPageInfo.getTotal(),
+                tagArticlePageEntityPageInfo.getPageNum(),
+                tagArticlePageEntityPageInfo.getSize(),
+                rspDTOS
+        );
+    }
 }

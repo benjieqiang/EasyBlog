@@ -1,12 +1,16 @@
 package com.ben.trigger.http;
 
+import com.ben.domain.web.model.entity.CategoryArticlePageEntity;
 import com.ben.domain.web.model.entity.CategoryEntity;
 import com.ben.domain.web.service.ICategoryService;
+import com.ben.trigger.http.dto.category.FindWebCategoryArticlePageListReqDTO;
+import com.ben.trigger.http.dto.category.FindWebCategoryArticlePageListRspDTO;
 import com.ben.trigger.http.dto.category.FindWebCategoryReqDTO;
 import com.ben.trigger.http.dto.category.FindWebCategoryRspDTO;
-import com.ben.trigger.http.dto.common.SelectRspDTO;
 import com.ben.types.annotations.ApiOperationLog;
+import com.ben.types.response.PageResponse;
 import com.ben.types.response.Response;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -54,4 +58,33 @@ public class WebCategoryController {
         }
         return Response.success(categoryRspDTOS);
     }
+
+    @PostMapping("/article/list")
+    @ApiOperation(value = "获取分类下文章分页数据")
+    @ApiOperationLog(description = "获取分类下文章分页数据")
+    public PageResponse findCategoryArticlePageList(@RequestBody @Validated FindWebCategoryArticlePageListReqDTO request) {
+
+
+        PageInfo<CategoryArticlePageEntity> categoryArticlePageList = categoryService.findCategoryArticlePageList(request.getId(), request.getCurrent(), request.getSize());
+        List<CategoryArticlePageEntity> categoryArticlePageEntities = categoryArticlePageList.getList();
+        List<FindWebCategoryArticlePageListRspDTO> rspDTOS = null;
+        if (!CollectionUtils.isEmpty(categoryArticlePageEntities)) {
+            rspDTOS = categoryArticlePageEntities.stream().map(categoryArticlePageEntity ->
+                    FindWebCategoryArticlePageListRspDTO.builder()
+                            .id(categoryArticlePageEntity.getId())
+                            .title(categoryArticlePageEntity.getTitle())
+                            .cover(categoryArticlePageEntity.getCover())
+                            .createDate(categoryArticlePageEntity.getCreateDate())
+                            .build()
+            ).collect(Collectors.toList());
+        }
+
+        return PageResponse.success(
+                categoryArticlePageList.getTotal(),
+                categoryArticlePageList.getPageNum(),
+                categoryArticlePageList.getSize(),
+                rspDTOS
+        );
+    }
+
 }

@@ -84,6 +84,12 @@
             #{id}
         </foreach>
     </select>
+    <select id="selectById" resultMap="tagMap">
+        select id, name, create_time, update_time, articles_total
+        from tag
+        where is_deleted = 0
+          and id = #{id}
+    </select>
 
 
 </mapper>

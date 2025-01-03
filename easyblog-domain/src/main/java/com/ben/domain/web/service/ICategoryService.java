@@ -1,6 +1,8 @@
 package com.ben.domain.web.service;
 
 import com.ben.domain.web.model.entity.CategoryEntity;
+import com.ben.domain.web.model.entity.CategoryArticlePageEntity;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -14,5 +16,7 @@ import java.util.List;
 public interface ICategoryService {
 
     List<CategoryEntity> findCategorySelectList(Long size);
+
+    PageInfo<CategoryArticlePageEntity> findCategoryArticlePageList(Long categoryId, Integer current, Integer size);
 }
 

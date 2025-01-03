@@ -1,6 +1,8 @@
 package com.ben.domain.web.repository;
 
 import com.ben.domain.web.model.entity.CategoryEntity;
+import com.ben.domain.web.model.entity.CategoryArticlePageEntity;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -13,4 +15,6 @@ import java.util.List;
 public interface ICategoryRepository {
 
     List<CategoryEntity> findCategorySelectList(Long size);
+
+    PageInfo<CategoryArticlePageEntity> findCategoryArticlePageList(Long id, Integer current, Integer size);
 }

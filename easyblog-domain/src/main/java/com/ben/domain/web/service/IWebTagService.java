@@ -1,6 +1,8 @@
 package com.ben.domain.web.service;
 
+import com.ben.domain.web.model.entity.TagArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -13,5 +15,7 @@ import java.util.List;
 
 public interface IWebTagService {
     List<TagEntity> findTagSelectList(Long size);
+
+    PageInfo<TagArticlePageEntity> findTagArticlePageList(Long id, Integer current, Integer size);
 }
 

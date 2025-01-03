@@ -1,6 +1,8 @@
 package com.ben.domain.web.repository;
 
+import com.ben.domain.web.model.entity.TagArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface ITagRepository {
 
     /* 查询所有标签 */
     List<TagEntity> findTagSelectList(Long size);
+
+    PageInfo<TagArticlePageEntity> findTagArticlePageList(Long tagId, Integer current, Integer size);
 }

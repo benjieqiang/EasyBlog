@@ -1,8 +1,10 @@
 package com.ben.domain.web.service.impl;
 
+import com.ben.domain.web.model.entity.TagArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
 import com.ben.domain.web.repository.ITagRepository;
 import com.ben.domain.web.service.IWebTagService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +26,10 @@ public class WebTagServiceImpl implements IWebTagService {
     @Override
     public List<TagEntity> findTagSelectList(Long size) {
         return tagRepository.findTagSelectList(size);
+    }
+
+    @Override
+    public PageInfo<TagArticlePageEntity> findTagArticlePageList(Long tagId, Integer current, Integer size) {
+        return tagRepository.findTagArticlePageList(tagId, current, size);
     }
 }
