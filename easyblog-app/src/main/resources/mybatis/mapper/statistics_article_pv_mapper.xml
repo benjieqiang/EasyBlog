@@ -19,7 +19,8 @@
 
     <update id="increasePVCount">
         update statistics_article_pv
-        set pv_count = pv_count + 1
+        set pv_count = pv_count + 1,
+            update_time = now()
         where pv_date = #{pvDate}
     </update>
 

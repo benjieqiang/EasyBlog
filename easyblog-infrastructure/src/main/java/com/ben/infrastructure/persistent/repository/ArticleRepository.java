@@ -1,5 +1,6 @@
 package com.ben.infrastructure.persistent.repository;
 
+import com.ben.domain.web.event.ReadArticleEvent;
 import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
 import com.ben.domain.web.model.entity.ArticleEntity;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
@@ -14,6 +15,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -44,6 +46,9 @@ public class ArticleRepository implements IArticleRepository {
 
     @Autowired
     private ICategoryDao categoryDao;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public PageInfo<IndexArticlePageEntity> findArticlePageList(Integer current, Integer size) {
@@ -169,6 +174,9 @@ public class ArticleRepository implements IArticleRepository {
         // 6. 总字数 + readingTime
         int calculateWordCount = MarkdownStatsUtil.calculateWordCount(articleContent.getContent());
         String readingTime = MarkdownStatsUtil.calculateReadingTime(calculateWordCount);
+
+        // 7. 阅读次数加1
+        eventPublisher.publishEvent(new ReadArticleEvent(this, articleId));
 
         return IndexArticleDetailAggregate.builder()
                 .title(article.getTitle())

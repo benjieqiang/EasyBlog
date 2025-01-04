@@ -47,6 +47,10 @@
             <groupId>com.ben</groupId>
             <artifactId>easyblog-domain</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ben</groupId>
+            <artifactId>easyblog-infrastructure</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
