@@ -34,4 +34,6 @@ public interface ITagDao {
     List<Tag> selectByIds(List<Long> ids);
 
     List<Tag> selectByLimit(Long size);
+
+    Long selectCount();
 }

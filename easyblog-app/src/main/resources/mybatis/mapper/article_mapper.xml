@@ -156,6 +156,20 @@
         from article
         where is_deleted = 0
     </select>
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(*)
+        from article
+        where is_deleted = 0
+    </select>
+
+    <select id="selectDateArticlePublishCount" resultType="com.ben.infrastructure.persistent.po.ArticleCount">
+        SELECT DATE (create_time) AS date, COUNT (*) AS count
+        FROM article
+        WHERE create_time &gt;= #{startDate}
+          AND create_time
+         &lt; #{endDate}
+        GROUP BY DATE (create_time)
+    </select>
 
     <update id="updateByIds" parameterType="map">
         UPDATE article

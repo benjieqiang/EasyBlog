@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.IStatisticsArticlePVDao">
+
+    <resultMap id="statisticsArticlePVMap" type="com.ben.infrastructure.persistent.po.StatisticsArticlePV">
+        <id column="id" property="id"/>
+        <result column="pv_date" property="pvDate"/>
+        <result column="pv_count" property="pvCount"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.StatisticsArticlePV">
+        INSERT INTO statistics_article_pv(pv_date,
+                                          pv_count,
+                                          create_time,
+                                          update_time)
+        VALUES (#{pvDate}, #{pvCount}, now(), now())
+    </insert>
+
+    <update id="increasePVCount">
+        update statistics_article_pv
+        set pv_count = pv_count + 1
+        where pv_date = #{pvDate}
+    </update>
+
+    <select id="selectLatestWeekRecords" resultMap="statisticsArticlePVMap">
+        select pv_date, pv_count, create_time, update_time
+        from statistics_article_pv
+        where pv_date &lt;= now()
+        ORDER BY pv_date DESC
+        limit 7;
+    </select>
+
+
+</mapper>

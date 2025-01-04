@@ -34,5 +34,7 @@ public interface ICategoryDao {
                                   @Param("endDate") LocalDateTime endDate);
 
     List<Category> selectByLimit(Long size);
+
+    Long selectCount();
 }
 

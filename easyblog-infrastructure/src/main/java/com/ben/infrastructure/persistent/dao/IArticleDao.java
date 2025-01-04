@@ -1,9 +1,11 @@
 package com.ben.infrastructure.persistent.dao;
 
 import com.ben.infrastructure.persistent.po.Article;
+import com.ben.infrastructure.persistent.po.ArticleCount;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -50,8 +52,8 @@ public interface IArticleDao {
     /* 批量更新文章 */
     int updateByIds(@Param("article") Article article, @Param("ids") List<Long> ids);
 
+    Long selectCount();
 
-    /* 按日分组，并统计每日发布的文章数量 */
-//    List<ArticlePublishCountDO> selectDateArticlePublishCount(LocalDate startDate, LocalDate endDate);
+    List<ArticleCount> selectDateArticlePublishCount(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
 

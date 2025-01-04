@@ -78,4 +78,9 @@
         order by articles_total desc
         limit #{size}
     </select>
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(*)
+        from category
+        where is_deleted = 0
+    </select>
 </mapper>

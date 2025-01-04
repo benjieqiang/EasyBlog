@@ -90,6 +90,11 @@
         where is_deleted = 0
           and id = #{id}
     </select>
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(*)
+        from tag
+        where is_deleted = 0
+    </select>
 
 
 </mapper>
