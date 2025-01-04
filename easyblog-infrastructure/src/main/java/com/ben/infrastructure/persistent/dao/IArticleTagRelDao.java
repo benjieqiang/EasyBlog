@@ -28,5 +28,7 @@ public interface IArticleTagRelDao {
     List<ArticleTagRel> selectByArticleIds(List<Long> articleIds);
     /* 查询该标签 ID 下所有关联记录 */
     List<ArticleTagRel> selectByTagId(Long tagId);
+    /* 查询所有记录 */
+    List<ArticleTagRel> selectAll();
 }
 

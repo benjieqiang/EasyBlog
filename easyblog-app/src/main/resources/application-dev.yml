@@ -51,6 +51,10 @@ jwt:
   # token 请求头中的 value 值前缀
   tokenPrefix: Bearer
 
+# Lucene 全文检索
+lucene:
+  indexDir: ./data/lucene/index
+
 # 日志
 logging:
   level:

@@ -20,9 +20,18 @@
         VALUES (#{name}, now(), now(), 0, 0)
     </insert>
 
-    <update id="updateCategory" parameterType="Long">
+    <update id="deleteCategory" parameterType="Long">
         UPDATE category
         SET is_deleted = 1
+        WHERE id = #{id}
+          and is_deleted = 0
+    </update>
+
+    <update id="update" parameterType="com.ben.infrastructure.persistent.po.Category">
+        update category
+        set name           = #{name},
+            update_time    = now(),
+            articles_total = #{articlesTotal}
         WHERE id = #{id}
           and is_deleted = 0
     </update>
@@ -76,11 +85,18 @@
         FROM category
         WHERE is_deleted = 0
         order by articles_total desc
-        limit #{size}
+            limit #{size}
     </select>
     <select id="selectCount" resultType="java.lang.Long">
         select count(*)
         from category
         where is_deleted = 0
+    </select>
+
+    <select id="selectALl" resultMap="categoryMap">
+        SELECT id, name, create_time, update_time, articles_total
+        FROM category
+        WHERE is_deleted = 0
+        ORDER BY create_time DESC
     </select>
 </mapper>

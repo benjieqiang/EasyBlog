@@ -50,6 +50,10 @@
         from article_tag_rel
         where tag_id = #{tagId}
     </select>
+    <select id="selectAll" resultMap="articleTagRelMap">
+        select id, article_id, tag_id
+        from article_tag_rel
+    </select>
 
 
 </mapper>

@@ -32,14 +32,22 @@
         </foreach>
     </insert>
 
-    <update id="updateTag" parameterType="Long">
+    <update id="deleteTag" parameterType="Long">
         UPDATE tag
         SET is_deleted = 1
         WHERE id = #{id}
           and is_deleted = 0
     </update>
 
-    <select id="findTagList" resultMap="tagMap">
+    <update id="update" parameterType="com.ben.infrastructure.persistent.po.Tag">
+        update tag
+        set name           = #{name},
+            update_time    = now(),
+            articles_total = #{articlesTotal}
+        WHERE id = #{id}
+          and is_deleted = 0
+    </update>
+    <select id="selectAll" resultMap="tagMap">
         select id, name, create_time, update_time, articles_total
         from tag
         where is_deleted = 0

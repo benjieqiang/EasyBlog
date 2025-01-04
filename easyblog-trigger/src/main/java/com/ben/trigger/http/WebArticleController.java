@@ -1,11 +1,16 @@
 package com.ben.trigger.http;
 
+import com.ben.domain.web.model.aggregate.ArticleSearchAggregate;
 import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
 import com.ben.domain.web.model.entity.ArticleEntity;
+import com.ben.domain.web.model.entity.ArticleSearchEntity;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
 import com.ben.domain.web.service.IArticleService;
+import com.ben.domain.web.service.ISearchService;
 import com.ben.trigger.http.dto.article.*;
+import com.ben.trigger.http.dto.search.SearchArticlePageListReqDTO;
+import com.ben.trigger.http.dto.search.SearchArticlePageListRspDTO;
 import com.ben.trigger.http.dto.tag.FindIndexTagRspDTO;
 import com.ben.types.annotations.ApiOperationLog;
 import com.ben.types.response.PageResponse;
@@ -15,6 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +45,9 @@ public class WebArticleController {
 
     @Autowired
     private IArticleService articleService;
+
+    @Autowired
+    private ISearchService searchService;
 
     @PostMapping("/list")
     @ApiOperation(value = "查询文章分页数据")
@@ -123,4 +132,33 @@ public class WebArticleController {
         return Response.success(articleDetailRsp);
     }
 
+
+    @PostMapping("/search")
+    @ApiOperation(value = "文章搜索")
+    @ApiOperationLog(description = "文章搜索")
+    public PageResponse searchArticlePageList(@RequestBody @Validated SearchArticlePageListReqDTO request) {
+        int current = request.getCurrent();
+        int size = request.getSize();
+        String word = request.getWord();
+        ArticleSearchAggregate articleSearchAggregate = searchService.searchArticlePageList(word, current, size);
+        List<ArticleSearchEntity> articleEntityList = articleSearchAggregate.getArticleEntityList();
+
+        List<SearchArticlePageListRspDTO> dtos = null;
+        if (!CollectionUtils.isEmpty(articleEntityList)) {
+            dtos = articleEntityList.stream().map(articleEntity ->
+                    SearchArticlePageListRspDTO.builder()
+                            .id(articleEntity.getId())
+                            .cover(articleEntity.getCover())
+                            .title(articleEntity.getTitle())
+                            .summary(articleEntity.getSummary())
+                            .createDate(articleEntity.getCreateDate())
+                            .build()).collect(Collectors.toList());
+        }
+
+        return PageResponse.success(
+                articleSearchAggregate.getTotal(),
+                articleSearchAggregate.getCurrent(),
+                articleSearchAggregate.getSize(),
+                dtos);
+    }
 }

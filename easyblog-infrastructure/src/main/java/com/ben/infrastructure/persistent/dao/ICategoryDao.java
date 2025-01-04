@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public interface ICategoryDao {
 
     void insert(String name);
 
-    int updateCategory(Long id);
+    int deleteCategory(Long id);
 
     List<Category> findCategoryList();
 
@@ -35,6 +34,10 @@ public interface ICategoryDao {
 
     List<Category> selectByLimit(Long size);
 
+    List<Category> selectALl();
+
     Long selectCount();
+
+    int update(Category category);
 }
 

@@ -46,7 +46,7 @@ public class TagRepository implements ITagRepository {
         // 如果接口入参中未指定 size
         if (Objects.isNull(size) || size == 0) {
             // 查询所有分类
-            tagList = tagDao.findTagList();
+            tagList = tagDao.selectAll();
         } else {
             // 否则查询指定的数量
             tagList = tagDao.selectByLimit(size);

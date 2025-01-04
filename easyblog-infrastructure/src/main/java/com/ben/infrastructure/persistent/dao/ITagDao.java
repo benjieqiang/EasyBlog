@@ -23,9 +23,11 @@ public interface ITagDao {
 
     void batchInsert(@Param("tags") List<String> tags);
 
-    int updateTag(Long id);
+    int deleteTag(Long id);
 
-    List<Tag> findTagList();
+    int update(Tag tag);
+
+    List<Tag> selectAll();
 
     List<Tag> selectPageList(@Param("name") String name,
                              @Param("startDate") LocalDateTime startDate,

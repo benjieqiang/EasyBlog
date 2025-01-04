@@ -22,9 +22,12 @@ public interface IArticleCategoryRelDao {
     ArticleCategoryRel selectByArticleId(Long articleId);
     /* 根据分类 ID 查询 */
     ArticleCategoryRel selectOneByCategoryId(Long categoryId);
+    /* 查询所有 */
     /* 根据文章 ID 集合批量查询 */
     List<ArticleCategoryRel> selectByArticleIds(List<Long> articleIds);
     /* 查询该分类 ID  下所有关联记录 */
     List<ArticleCategoryRel> selectListByCategoryId(Long categoryId);
+    /* 查询所有 */
+    List<ArticleCategoryRel> selectAll();
 }
 

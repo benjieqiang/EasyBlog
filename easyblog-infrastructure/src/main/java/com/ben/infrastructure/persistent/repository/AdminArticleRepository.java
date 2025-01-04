@@ -1,5 +1,8 @@
 package com.ben.infrastructure.persistent.repository;
 
+import com.ben.domain.admin.event.DeleteArticleEvent;
+import com.ben.domain.admin.event.PublishArticleEvent;
+import com.ben.domain.admin.event.UpdateArticleEvent;
 import com.ben.domain.admin.model.aggregate.ArticleDetailAggregate;
 import com.ben.domain.admin.model.entity.ArticleEntity;
 import com.ben.domain.admin.model.entity.ArticlePageEntity;
@@ -13,6 +16,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.CollectionUtils;
@@ -50,6 +54,9 @@ public class AdminArticleRepository implements IAdminArticleRepository {
 
     @Autowired
     private TransactionTemplate transactionTemplate;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public void publishArticle(ArticleEntity articleEntity) {
@@ -97,6 +104,8 @@ public class AdminArticleRepository implements IAdminArticleRepository {
                 throw new BizException(ResponseCode.INSERT_FAILED);
             }
         });
+        // 文章发布，通过lucene更新索引
+        eventPublisher.publishEvent(new PublishArticleEvent(this, article.getId()));
     }
 
     /**
@@ -112,7 +121,7 @@ public class AdminArticleRepository implements IAdminArticleRepository {
         List<String> existedTags = null;
 
         // 1. 查询出所有标签
-        List<Tag> tagList = tagDao.findTagList();
+        List<Tag> tagList = tagDao.selectAll();
 
         // 2. 判断tag表是否为空
         // 2.1 空表：则existedTags=null,notExistTags !=null;
@@ -201,6 +210,9 @@ public class AdminArticleRepository implements IAdminArticleRepository {
                 throw new BizException(ResponseCode.ARTICLE_DELETE_FAILED);
             }
         });
+
+        // 发布文章删除事件
+        eventPublisher.publishEvent(new DeleteArticleEvent(this, id));
     }
 
     @Override
@@ -310,7 +322,8 @@ public class AdminArticleRepository implements IAdminArticleRepository {
                 throw new BizException(ResponseCode.ARTICLE_UPDATED_FAILED);
             }
         });
-
+        // 发布文章修改事件
+        eventPublisher.publishEvent(new UpdateArticleEvent(this, articleId));
     }
 
     @Override

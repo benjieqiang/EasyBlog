@@ -35,7 +35,7 @@ public class AdminTagRepository implements IAdminTagRepository {
     @Override
     public int deleteTag(Long id) {
         // todo: 如果category下面有文章，不能删除，直接抛出异常；
-        return tagDao.updateTag(id);
+        return tagDao.deleteTag(id);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class AdminTagRepository implements IAdminTagRepository {
 
     @Override
     public List<TagEntity> findTagSelectList() {
-        List<Tag> tagList = tagDao.findTagList();
+        List<Tag> tagList = tagDao.selectAll();
         if (tagList == null) return null;
         return tagList.stream().map(
                 tag -> TagEntity.builder()

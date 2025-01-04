@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,7 +82,7 @@ public class AdminCategoryRepository implements IAdminCategoryRepository {
             throw new BizException(ResponseCode.CATEGORY_CAN_NOT_DELETE);
         }
 
-        return categoryDao.updateCategory(categoryId);
+        return categoryDao.deleteCategory(categoryId);
     }
 
     @Override
