@@ -81,7 +81,7 @@
         from article
         WHERE is_deleted = 0
         <if test="title != null and title != ''">
-            AND name LIKE CONCAT('%', #{title}, '%')
+            AND title LIKE CONCAT('%', #{title}, '%')
         </if>
         <if test="startDate != null">
             AND create_time &gt;= #{startDate}
@@ -199,9 +199,6 @@
             <if test="summary != null">
                 summary = #{summary},
             </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
             <if test="isDeleted != null">
                 is_deleted = #{isDeleted},
             </if>
@@ -214,6 +211,7 @@
             <if test="type != null">
                 type = #{type},
             </if>
+            update_time = now()
         </set>
         WHERE id = #{id}
     </update>

@@ -35,6 +35,10 @@ public enum ResponseCode implements IBaseException {
     ARTICLE_NOT_FOUND("20013", "该文章不存在！"),
     ARTICLE_UPDATED_FAILED("20014", "文章更新失败！"),
     CATEGORY_CAN_NOT_DELETE("20015", "该分类下包含文章，请先删除对应文章，才能删除！"),
+    WIKI_NOT_EXISTED("20016", "该Wiki不存在！"),
+    WIKI_UPDATED_FAILED("20017", "Wiki更新失败！"),
+    WIKI_CATALOG_NOT_EXISTED("20018", "该Wiki目录不存在！"),
+    WIKI_CATALOG_UPDATED_FAILED("20019", "该Wiki目录更新失败！"),
 
     ;
 

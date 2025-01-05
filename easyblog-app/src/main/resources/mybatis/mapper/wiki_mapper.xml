@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.IWikiDao">
+
+    <resultMap id="wikiMap" type="com.ben.infrastructure.persistent.po.Wiki">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="cover" property="cover"/>
+        <result column="summary" property="summary"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="weight" property="weight"/>
+        <result column="is_publish" property="isPublish"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Wiki" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO wiki(title,
+                            cover,
+                            summary,
+                            create_time,
+                            update_time,
+                            is_deleted,
+                            weight,
+                            is_publish)
+        VALUES (#{title}, #{cover}, #{summary}, now(), now(), 0, 0, 1)
+    </insert>
+
+    <update id="deleteByWikiId" parameterType="Long">
+        update wiki
+        set is_deleted = 1
+        where id = #{wikiId}
+          and is_deleted = 0
+    </update>
+
+    <select id="selectByWikiId" resultMap="wikiMap">
+        select id,
+               title,
+               cover,
+               summary,
+               create_time,
+               update_time,
+               is_deleted,
+               weight,
+               is_publish
+        from wiki
+        where id = #{wikiId}
+          and is_deleted = 0
+
+    </select>
+
+    <select id="selectPublished" resultMap="wikiMap">
+        select id,
+               title,
+               cover,
+               summary,
+               create_time,
+               update_time,
+               is_deleted,
+               weight,
+               is_publish
+        from wiki
+        where is_publish = 1
+        and is_deleted = 0
+    </select>
+
+    <select id="selectMaxWeight" resultMap="wikiMap">
+        select id,
+               title,
+               cover,
+               summary,
+               create_time,
+               update_time,
+               is_deleted,
+               weight,
+               is_publish
+        from wiki
+        where is_deleted = 0
+        order by weight desc limit 1;
+    </select>
+
+    <select id="selectPageList" resultMap="wikiMap">
+        select id,
+        title,
+        cover,
+        summary,
+        create_time,
+        update_time,
+        is_deleted,
+        weight,
+        is_publish
+        from wiki
+        WHERE is_deleted = 0
+        <if test="title != null and title != ''">
+            AND title LIKE CONCAT('%', #{title}, '%')
+        </if>
+        <if test="startDate != null">
+            AND create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_time &lt;= #{endDate}
+        </if>
+        <if test="isPublish != null">
+            AND is_publish = #{isPublish}
+        </if>
+        ORDER BY weight DESC, create_time DESC
+    </select>
+
+    <update id="update" parameterType="com.ben.infrastructure.persistent.po.Wiki">
+        UPDATE wiki
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="cover != null">
+                cover = #{cover},
+            </if>
+            <if test="summary != null">
+                summary = #{summary},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="isPublish != null">
+                is_publish = #{isPublish},
+            </if>
+            update_time = now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -116,9 +116,9 @@ public class AdminArticleRepository implements IAdminArticleRepository {
      */
     private void insertTags(Long articleId, List<String> publishTags) {
         // 筛选提交的标签（表中不存在的标签）
-        List<String> notExistTags = null;
+        List<String> notExistTags = Lists.newArrayList();
         // 筛选提交的标签（表中已存在的标签）
-        List<String> existedTags = null;
+        List<String> existedTags = Lists.newArrayList();
 
         // 1. 查询出所有标签
         List<Tag> tagList = tagDao.selectAll();
@@ -153,42 +153,54 @@ public class AdminArticleRepository implements IAdminArticleRepository {
             }
         }
 
-        // 3. 插入表
-        // 3.1 tag表中已存在标签，只需往articleTagRelDao插入
-        if (!CollectionUtils.isEmpty(existedTags)) {
-            List<ArticleTagRel> articleTagRelList = Lists.newArrayList();
-            existedTags.forEach(tagId -> {
-                ArticleTagRel articleTagRel = ArticleTagRel.builder()
-                        .articleId(articleId)
-                        .tagId(Long.valueOf(tagId))
-                        .build();
-                articleTagRelList.add(articleTagRel);
-            });
-            // 批量插入
-            articleTagRelDao.insertBatch(articleTagRelList);
-        }
+        List<String> finalExistedTags = existedTags;
+        List<String> finalNotExistTags = notExistTags;
 
-        // 3.2 tag表中不存在：先插入tag表，再插入tag-文章关联表
-        if (!CollectionUtils.isEmpty(notExistTags)) {
-            // 需要先将标签入库，拿到对应标签 ID 后，再把文章-标签关联关系入库
-            List<ArticleTagRel> articleTagRelList = Lists.newArrayList();
-            notExistTags.forEach(tagName -> {
-                Tag tag = Tag.builder()
-                        .name(tagName)
-                        .build();
-                tagDao.insert(tag);
-                // 拿到保存的标签 ID
-                Long tagId = tag.getId();
-                // 文章-标签关联关系
-                ArticleTagRel articleTagRel = ArticleTagRel.builder()
-                        .articleId(articleId)
-                        .tagId(tagId)
-                        .build();
-                articleTagRelList.add(articleTagRel);
-            });
-            // 批量插入
-            articleTagRelDao.insertBatch(articleTagRelList);
-        }
+        transactionTemplate.execute(status -> {
+            try {
+                // 3. 插入表
+                // 3.1 tag表中已存在标签，只需往articleTagRelDao插入
+                if (!CollectionUtils.isEmpty(finalExistedTags)) {
+                    List<ArticleTagRel> articleTagRelList = Lists.newArrayList();
+                    finalExistedTags.forEach(tagId -> {
+                        ArticleTagRel articleTagRel = ArticleTagRel.builder()
+                                .articleId(articleId)
+                                .tagId(Long.valueOf(tagId))
+                                .build();
+                        articleTagRelList.add(articleTagRel);
+                    });
+                    // 批量插入
+                    articleTagRelDao.insertBatch(articleTagRelList);
+                }
+
+                // 3.2 tag表中不存在：先插入tag表，再插入tag-文章关联表
+                if (!CollectionUtils.isEmpty(finalNotExistTags)) {
+                    // 需要先将标签入库，拿到对应标签 ID 后，再把文章-标签关联关系入库
+                    List<ArticleTagRel> articleTagRelList = Lists.newArrayList();
+                    finalNotExistTags.forEach(tagName -> {
+                        Tag tag = Tag.builder()
+                                .name(tagName)
+                                .build();
+                        tagDao.insert(tag);
+                        // 拿到保存的标签 ID
+                        Long tagId = tag.getId();
+                        // 文章-标签关联关系
+                        ArticleTagRel articleTagRel = ArticleTagRel.builder()
+                                .articleId(articleId)
+                                .tagId(tagId)
+                                .build();
+                        articleTagRelList.add(articleTagRel);
+                    });
+                    // 批量插入
+                    articleTagRelDao.insertBatch(articleTagRelList);
+                }
+                return 1;
+            } catch (Exception e) {
+                status.setRollbackOnly();
+                log.error("插入文章记录，失败", e);
+                throw new BizException(ResponseCode.INSERT_FAILED);
+            }
+        });
     }
 
     @Override
@@ -333,9 +345,9 @@ public class AdminArticleRepository implements IAdminArticleRepository {
             // 查询最大权重值；
             Article maxWeightArticle = articleDao.selectMaxWeight();
             maxWeight = maxWeightArticle.getWeight() + 1;
-            // 更新该文章id,置顶：最大权重+1，不置顶：weight置0；
-            Article article = Article.builder().id(articleId).weight(maxWeight).build();
-            articleDao.update(article);
         }
+        // 更新该文章id,置顶：最大权重+1，不置顶：weight置0；
+        Article article = Article.builder().id(articleId).weight(maxWeight).build();
+        articleDao.update(article);
     }
 }

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.IWikiCatalogDao">
+
+    <resultMap id="wikiCatalogMap" type="com.ben.infrastructure.persistent.po.WikiCatalog">
+        <id column="id" property="id"/>
+        <result column="wiki_id" property="wikiId"/>
+        <result column="article_id" property="articleId"/>
+        <result column="title" property="title"/>
+        <result column="level" property="level"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="sort" property="sort"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.WikiCatalog" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO wiki_catalog(wiki_id,
+                                 article_id,
+                                 title,
+                                 level,
+                                 parent_id,
+                                 sort,
+                                 create_time,
+                                 update_time,
+                                 is_deleted)
+        VALUES (#{wikiId}, #{articleId}, #{title}, #{level}, #{parentId}, #{sort}, now(), now(), 0)
+    </insert>
+
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO wiki_catalog(wiki_id,
+        article_id,
+        title,
+        level,
+        parent_id,
+        sort,
+        create_time,
+        update_time,
+        is_deleted)
+        VALUES
+        <foreach collection="list" item="catalog" separator=",">
+            (#{catalog.wikiId}, #{catalog.articleId}, #{catalog.title}, #{catalog.level}, #{catalog.parentId},
+            #{catalog.sort}, now(), now(), 0)
+        </foreach>
+    </insert>
+
+    <delete id="deleteByWikiId" parameterType="Long">
+        delete from wiki_catalog
+        WHERE wiki_id = #{wikiId}
+          and is_deleted = 0
+    </delete>
+
+    <select id="selectByWikiId" resultMap="wikiCatalogMap">
+        select id,
+               wiki_id,
+               article_id,
+               title,
+               level,
+               parent_id,
+               sort,
+               create_time,
+               update_time,
+               is_deleted
+        from wiki_catalog
+        where is_deleted = 0
+          and wiki_id = #{wikiId}
+    </select>
+
+    <select id="selectFirstArticleId" resultMap="wikiCatalogMap">
+        select id,
+               wiki_id,
+               article_id,
+               title,
+               level,
+               parent_id,
+               sort,
+               create_time,
+               update_time,
+               is_deleted
+        from wiki_catalog
+        where is_deleted = 0
+          and wiki_id = #{wikiId}
+          and article_id != null
+          and level = 2
+        order by id limit 1
+    </select>
+    <select id="selectPreArticle" resultMap="wikiCatalogMap">
+        select id,
+               wiki_id,
+               article_id,
+               title,
+               level,
+               parent_id,
+               sort,
+               create_time,
+               update_time,
+               is_deleted
+        from wiki_catalog
+        where is_deleted = 0
+          and wiki_id = #{wikiId}
+          and article_id != null
+         and id &gt; #{catalogId}
+        order by id asc limit 1
+    </select>
+
+    <select id="selectNextArticle" resultMap="wikiCatalogMap">
+        select id,
+               wiki_id,
+               article_id,
+               title,
+               level,
+               parent_id,
+               sort,
+               create_time,
+               update_time,
+               is_deleted
+        from wiki_catalog
+        where is_deleted = 0
+          and wiki_id = #{wikiId}
+          and article_id != null
+         and id &lt; #{catalogId}
+        order by id desc limit 1
+    </select>
+
+    <select id="selectByWikiIdAndArticleId" resultMap="wikiCatalogMap">
+        select id,
+               wiki_id,
+               article_id,
+               title,
+               level,
+               parent_id,
+               sort,
+               create_time,
+               update_time,
+               is_deleted
+        from wiki_catalog
+        where is_deleted = 0
+          and wiki_id = #{wikiId}
+          and article_id = #{articleId}
+    </select>
+
+</mapper>
