@@ -1,7 +1,7 @@
 package com.ben.infrastructure.persistent.repository;
 
 import com.ben.domain.web.event.ReadArticleEvent;
-import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
+import com.ben.domain.web.model.aggregate.WebArticleDetailAggregate;
 import com.ben.domain.web.model.entity.ArticleEntity;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
@@ -130,7 +130,7 @@ public class ArticleRepository implements IArticleRepository {
     }
 
     @Override
-    public IndexArticleDetailAggregate findArticleDetail(Long articleId) {
+    public WebArticleDetailAggregate findArticleDetail(Long articleId) {
         // 1. 查询文章表详情；
         Article article = articleDao.selectByArticleId(articleId);
         if (Objects.isNull(article)) {
@@ -178,7 +178,7 @@ public class ArticleRepository implements IArticleRepository {
         // 7. 阅读次数加1
         eventPublisher.publishEvent(new ReadArticleEvent(this, articleId));
 
-        return IndexArticleDetailAggregate.builder()
+        return WebArticleDetailAggregate.builder()
                 .title(article.getTitle())
                 .content(articleContent.getContent())
                 .createTime(article.getCreateTime())

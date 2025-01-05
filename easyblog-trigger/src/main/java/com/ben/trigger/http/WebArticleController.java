@@ -1,7 +1,7 @@
 package com.ben.trigger.http;
 
 import com.ben.domain.web.model.aggregate.ArticleSearchAggregate;
-import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
+import com.ben.domain.web.model.aggregate.WebArticleDetailAggregate;
 import com.ben.domain.web.model.entity.ArticleEntity;
 import com.ben.domain.web.model.entity.ArticleSearchEntity;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
@@ -88,7 +88,7 @@ public class WebArticleController {
     @ApiOperationLog(description = "查询文章详情")
     public Response findArticleDetail(@RequestBody @Validated FindArticleDetailReqDTO request) {
         Long articleId = request.getId();
-        IndexArticleDetailAggregate articleDetail = articleService.findArticleDetail(articleId);
+        WebArticleDetailAggregate articleDetail = articleService.findArticleDetail(articleId);
         List<TagEntity> tags = articleDetail.getTags();
         List<FindIndexTagRspDTO> tagRspDTOS = tags.stream()
                 .map(tag -> FindIndexTagRspDTO.builder()

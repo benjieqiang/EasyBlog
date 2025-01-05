@@ -1,6 +1,6 @@
 package com.ben.domain.web.repository;
 
-import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
+import com.ben.domain.web.model.aggregate.WebArticleDetailAggregate;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
 import com.github.pagehelper.PageInfo;
 
@@ -15,5 +15,5 @@ public interface IArticleRepository {
     /* 查询所有标签 */
     PageInfo<IndexArticlePageEntity> findArticlePageList(Integer current, Integer size);
 
-    IndexArticleDetailAggregate findArticleDetail(Long articleId);
+    WebArticleDetailAggregate findArticleDetail(Long articleId);
 }

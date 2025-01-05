@@ -1,6 +1,6 @@
 package com.ben.domain.web.service.impl;
 
-import com.ben.domain.web.model.aggregate.IndexArticleDetailAggregate;
+import com.ben.domain.web.model.aggregate.WebArticleDetailAggregate;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
 import com.ben.domain.web.repository.IArticleRepository;
 import com.ben.domain.web.service.IArticleService;
@@ -28,7 +28,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public IndexArticleDetailAggregate findArticleDetail(Long articleId) {
+    public WebArticleDetailAggregate findArticleDetail(Long articleId) {
         return articleRepository.findArticleDetail(articleId);
     }
 }

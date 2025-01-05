@@ -82,7 +82,7 @@
         from wiki_catalog
         where is_deleted = 0
           and wiki_id = #{wikiId}
-          and article_id != null
+          and article_id is not NULL
           and level = 2
         order by id limit 1
     </select>
@@ -100,8 +100,8 @@
         from wiki_catalog
         where is_deleted = 0
           and wiki_id = #{wikiId}
-          and article_id != null
-         and id &gt; #{catalogId}
+          and article_id is not NULL
+          and id &lt; #{catalogId}
         order by id asc limit 1
     </select>
 
@@ -119,8 +119,8 @@
         from wiki_catalog
         where is_deleted = 0
           and wiki_id = #{wikiId}
-          and article_id != null
-         and id &lt; #{catalogId}
+          and article_id is not NULL
+          and id &gt; #{catalogId}
         order by id desc limit 1
     </select>
 

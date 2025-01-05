@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class IndexArticleDetailAggregate {
+public class WebArticleDetailAggregate {
     /**
      * 文章标题
      */

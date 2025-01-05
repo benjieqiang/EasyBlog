@@ -30,4 +30,10 @@ public class WikiCatalogDaoTest {
         wikiCatalogDao.insert(WikiCatalog.builder().wikiId(wikiId).level(WikiCatalogLevelVO.ONE.getValue()).title("基础").sort(2).build());
     }
 
+    @Test
+    public void test_selectFirstArticleId() {
+        WikiCatalog wikiCatalog = wikiCatalogDao.selectFirstArticleId(9L);
+        log.info("测试结果： {}", wikiCatalog);
+    }
+
 }
