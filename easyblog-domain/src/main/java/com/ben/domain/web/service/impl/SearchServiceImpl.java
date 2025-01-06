@@ -1,7 +1,7 @@
 package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.aggregate.ArticleSearchAggregate;
-import com.ben.domain.web.repository.ISearchRepository;
+import com.ben.domain.web.adapter.repository.ISearchRepository;
 import com.ben.domain.web.service.ISearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

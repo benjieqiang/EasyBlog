@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ben.infrastructure.persistent.dao.ICommentDao">
+
+    <resultMap id="commentMap" type="com.ben.infrastructure.persistent.dao.po.Comment">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="avatar" property="avatar"/>
+        <result column="nickname" property="nickname"/>
+        <result column="mail" property="mail"/>
+        <result column="website" property="website"/>
+        <result column="router_url" property="routerUrl"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="reply_comment_id" property="replyCommentId"/>
+        <result column="parent_comment_id" property="parentCommentId"/>
+        <result column="reason" property="reason"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.dao.po.Comment" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO comment(content,
+                            avatar,
+                            nickname,
+                            mail,
+                            website,
+                            router_url,
+                            create_time,
+                            update_time,
+                            is_deleted,
+                            reply_comment_id,
+                            parent_comment_id,
+                            reason,
+                            status)
+        VALUES (#{content}, #{avatar}, #{nickname}, #{mail}, #{website}, #{routerUrl}, now(), now(), 0,
+                #{replyCommentId}, #{parentCommentId}, #{reason}, 1)
+    </insert>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from comment
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByParentCommentId" parameterType="Long">
+        delete
+        from comment
+        where parent_comment_id = #{parentCommentId}
+    </delete>
+
+    <select id="selectById" resultMap="commentMap">
+        select id,
+               content,
+               avatar,
+               nickname,
+               mail,
+               website,
+               router_url,
+               create_time,
+               update_time,
+               is_deleted,
+               reply_comment_id,
+               parent_comment_id,
+               reason,
+               status
+        from comment
+        where id = #{id}
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByRouterUrlAndStatus" resultMap="commentMap">
+        select id,
+               content,
+               avatar,
+               nickname,
+               mail,
+               website,
+               router_url,
+               create_time,
+               update_time,
+               is_deleted,
+               reply_comment_id,
+               parent_comment_id,
+               reason,
+               status
+        from comment
+        where router_url = #{routerUrl}
+          and status = #{status}
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectByReplyCommentId" resultMap="commentMap">
+        select id,
+               content,
+               avatar,
+               nickname,
+               mail,
+               website,
+               router_url,
+               create_time,
+               update_time,
+               is_deleted,
+               reply_comment_id,
+               parent_comment_id,
+               reason,
+               status
+        from comment
+        where reply_comment_id = #{replyCommentId}
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="selectPageList" resultMap="commentMap">
+        select id,
+        content,
+        avatar,
+        nickname,
+        mail,
+        website,
+        router_url,
+        create_time,
+        update_time,
+        is_deleted,
+        reply_comment_id,
+        parent_comment_id,
+        reason,
+        status
+        from comment
+        <if test="router_url != null and router_url != ''">
+            AND router_url LIKE CONCAT('%', #{routerUrl}, '%')
+        </if>
+        <if test="startDate != null">
+            AND create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_time &lt;= #{endDate}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <update id="update" parameterType="com.ben.infrastructure.persistent.dao.po.Comment">
+        UPDATE comment
+        <set>
+            <if test="reason != null">
+                reason = #{reason},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            update_time = now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

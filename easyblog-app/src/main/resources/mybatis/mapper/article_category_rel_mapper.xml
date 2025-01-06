@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ben.infrastructure.persistent.dao.IArticleCategoryRelDao">
 
-    <resultMap id="articleCategoryRelMap" type="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+    <resultMap id="articleCategoryRelMap" type="com.ben.infrastructure.persistent.dao.po.ArticleCategoryRel">
         <id column="id" property="id"/>
         <result column="article_id" property="articleId"/>
         <result column="category_id" property="categoryId"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.ArticleCategoryRel">
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.dao.po.ArticleCategoryRel">
         insert into article_category_rel
             (article_id, category_id)
         values (#{articleId}, #{categoryId})

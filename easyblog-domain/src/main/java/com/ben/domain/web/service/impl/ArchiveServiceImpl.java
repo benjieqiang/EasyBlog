@@ -1,9 +1,8 @@
 package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.aggregate.ArchiveArticleAggregate;
-import com.ben.domain.web.repository.IArchiveRepository;
+import com.ben.domain.web.adapter.repository.IArchiveRepository;
 import com.ben.domain.web.service.IArchiveService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

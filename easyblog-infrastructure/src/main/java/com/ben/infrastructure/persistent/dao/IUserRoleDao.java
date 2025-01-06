@@ -1,6 +1,6 @@
 package com.ben.infrastructure.persistent.dao;
 
-import com.ben.infrastructure.persistent.po.UserRole;
+import com.ben.infrastructure.persistent.dao.po.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

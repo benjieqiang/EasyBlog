@@ -1,6 +1,6 @@
 package com.ben.trigger.subscriber;
 
-import com.ben.domain.web.event.ReadArticleEvent;
+import com.ben.domain.web.adapter.event.ReadArticleEvent;
 import com.ben.infrastructure.persistent.dao.IArticleDao;
 import com.ben.infrastructure.persistent.dao.IStatisticsArticlePVDao;
 import lombok.extern.slf4j.Slf4j;

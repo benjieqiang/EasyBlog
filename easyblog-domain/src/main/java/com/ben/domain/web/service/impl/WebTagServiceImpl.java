@@ -2,7 +2,7 @@ package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.entity.TagArticlePageEntity;
 import com.ben.domain.web.model.entity.TagEntity;
-import com.ben.domain.web.repository.ITagRepository;
+import com.ben.domain.web.adapter.repository.ITagRepository;
 import com.ben.domain.web.service.IWebTagService;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;

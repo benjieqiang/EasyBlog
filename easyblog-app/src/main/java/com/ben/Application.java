@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @Configurable
 @EnableScheduling // 启用定时任务
+
 public class Application {
 
     public static void main(String[] args){

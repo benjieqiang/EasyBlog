@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ben.infrastructure.persistent.dao.IArticleContentDao">
 
-    <resultMap id="articleContentMap" type="com.ben.infrastructure.persistent.po.ArticleContent">
+    <resultMap id="articleContentMap" type="com.ben.infrastructure.persistent.dao.po.ArticleContent">
         <id column="id" property="id"/>
         <result column="article_id" property="articleId"/>
         <result column="content" property="content"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.ArticleContent">
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.dao.po.ArticleContent">
         insert into article_content
             (article_id, content)
         values (#{articleId}, #{content})
     </insert>
 
-    <update id="update" parameterType="com.ben.infrastructure.persistent.po.ArticleContent">
+    <update id="update" parameterType="com.ben.infrastructure.persistent.dao.po.ArticleContent">
         update article_content
         set content = #{content}
         where article_id = #{articleId}

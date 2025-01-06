@@ -1,11 +1,8 @@
 package com.ben.test.infrastructure.repository;
 
-import com.ben.domain.admin.model.entity.CategoryEntity;
-import com.ben.domain.admin.model.entity.CategoryPageEntity;
 import com.ben.domain.admin.model.entity.TagEntity;
 import com.ben.domain.admin.model.entity.TagPageEntity;
-import com.ben.infrastructure.persistent.dao.ITagDao;
-import com.ben.infrastructure.persistent.repository.AdminTagRepository;
+import com.ben.infrastructure.persistent.adapter.repository.AdminTagRepository;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

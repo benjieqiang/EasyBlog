@@ -1,7 +1,7 @@
 package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.entity.StatisticsInfoEntity;
-import com.ben.domain.web.repository.IStatisticsRepository;
+import com.ben.domain.web.adapter.repository.IStatisticsRepository;
 import com.ben.domain.web.service.IStatisticsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

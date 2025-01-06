@@ -1,7 +1,7 @@
 package com.ben.test.infrastructure.dao;
 
 import com.ben.infrastructure.persistent.dao.IArticleDao;
-import com.ben.infrastructure.persistent.po.Article;
+import com.ben.infrastructure.persistent.dao.po.Article;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;

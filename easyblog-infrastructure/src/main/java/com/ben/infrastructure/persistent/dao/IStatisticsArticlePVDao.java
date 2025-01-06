@@ -1,6 +1,6 @@
 package com.ben.infrastructure.persistent.dao;
 
-import com.ben.infrastructure.persistent.po.StatisticsArticlePV;
+import com.ben.infrastructure.persistent.dao.po.StatisticsArticlePV;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDate;

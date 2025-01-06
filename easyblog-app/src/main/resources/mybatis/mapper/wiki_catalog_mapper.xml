@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ben.infrastructure.persistent.dao.IWikiCatalogDao">
 
-    <resultMap id="wikiCatalogMap" type="com.ben.infrastructure.persistent.po.WikiCatalog">
+    <resultMap id="wikiCatalogMap" type="com.ben.infrastructure.persistent.dao.po.WikiCatalog">
         <id column="id" property="id"/>
         <result column="wiki_id" property="wikiId"/>
         <result column="article_id" property="articleId"/>
@@ -15,7 +15,7 @@
         <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.WikiCatalog" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.dao.po.WikiCatalog" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO wiki_catalog(wiki_id,
                                  article_id,

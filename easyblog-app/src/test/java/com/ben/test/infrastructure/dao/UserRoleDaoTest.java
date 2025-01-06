@@ -1,7 +1,7 @@
 package com.ben.test.infrastructure.dao;
 
 import com.ben.infrastructure.persistent.dao.IUserRoleDao;
-import com.ben.infrastructure.persistent.po.UserRole;
+import com.ben.infrastructure.persistent.dao.po.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

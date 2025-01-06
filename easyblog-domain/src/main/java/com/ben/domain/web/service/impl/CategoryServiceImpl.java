@@ -2,7 +2,7 @@ package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.entity.CategoryEntity;
 import com.ben.domain.web.model.entity.CategoryArticlePageEntity;
-import com.ben.domain.web.repository.ICategoryRepository;
+import com.ben.domain.web.adapter.repository.ICategoryRepository;
 import com.ben.domain.web.service.ICategoryService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

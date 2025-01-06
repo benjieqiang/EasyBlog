@@ -1,6 +1,6 @@
 package com.ben.infrastructure.persistent.dao;
 
-import com.ben.infrastructure.persistent.po.Tag;
+import com.ben.infrastructure.persistent.dao.po.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

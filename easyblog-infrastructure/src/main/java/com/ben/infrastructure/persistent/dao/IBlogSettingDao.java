@@ -1,6 +1,6 @@
 package com.ben.infrastructure.persistent.dao;
 
-import com.ben.infrastructure.persistent.po.BlogSetting;
+import com.ben.infrastructure.persistent.dao.po.BlogSetting;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

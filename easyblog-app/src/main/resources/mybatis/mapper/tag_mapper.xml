@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ben.infrastructure.persistent.dao.ITagDao">
 
-    <resultMap id="tagMap" type="com.ben.infrastructure.persistent.po.Tag">
+    <resultMap id="tagMap" type="com.ben.infrastructure.persistent.dao.po.Tag">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="create_time" property="createTime"/>
@@ -11,7 +11,7 @@
         <result column="articles_total" property="articlesTotal"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Tag" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.dao.po.Tag" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO tag(name,
                         create_time,
@@ -39,7 +39,7 @@
           and is_deleted = 0
     </update>
 
-    <update id="update" parameterType="com.ben.infrastructure.persistent.po.Tag">
+    <update id="update" parameterType="com.ben.infrastructure.persistent.dao.po.Tag">
         update tag
         set name           = #{name},
             update_time    = now(),

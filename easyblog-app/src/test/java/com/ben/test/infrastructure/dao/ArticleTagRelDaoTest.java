@@ -3,7 +3,7 @@ package com.ben.test.infrastructure.dao
 ;
 
 import com.ben.infrastructure.persistent.dao.IArticleTagRelDao;
-import com.ben.infrastructure.persistent.po.ArticleTagRel;
+import com.ben.infrastructure.persistent.dao.po.ArticleTagRel;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

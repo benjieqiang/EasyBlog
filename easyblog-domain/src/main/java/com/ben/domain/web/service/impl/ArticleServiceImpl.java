@@ -2,7 +2,7 @@ package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.aggregate.WebArticleDetailAggregate;
 import com.ben.domain.web.model.entity.IndexArticlePageEntity;
-import com.ben.domain.web.repository.IArticleRepository;
+import com.ben.domain.web.adapter.repository.IArticleRepository;
 import com.ben.domain.web.service.IArticleService;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;

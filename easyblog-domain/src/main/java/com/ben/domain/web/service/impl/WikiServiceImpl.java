@@ -3,7 +3,7 @@ package com.ben.domain.web.service.impl;
 import com.ben.domain.web.model.aggregate.WebWikiCatalogAggregate;
 import com.ben.domain.web.model.aggregate.WikiPreNextArticleAggregate;
 import com.ben.domain.web.model.entity.WikiInfoEntity;
-import com.ben.domain.web.repository.IWikiRepository;
+import com.ben.domain.web.adapter.repository.IWikiRepository;
 import com.ben.domain.web.service.IWikiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

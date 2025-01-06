@@ -1,14 +1,13 @@
 package com.ben.trigger.job;
 
 import com.ben.infrastructure.persistent.dao.IStatisticsArticlePVDao;
-import com.ben.infrastructure.persistent.po.StatisticsArticlePV;
+import com.ben.infrastructure.persistent.dao.po.StatisticsArticlePV;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * @author benjieqiang

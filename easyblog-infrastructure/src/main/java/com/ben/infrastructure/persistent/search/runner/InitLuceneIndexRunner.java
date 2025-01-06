@@ -2,8 +2,8 @@ package com.ben.infrastructure.persistent.search.runner;
 
 import com.ben.infrastructure.persistent.dao.IArticleContentDao;
 import com.ben.infrastructure.persistent.dao.IArticleDao;
-import com.ben.infrastructure.persistent.po.Article;
-import com.ben.infrastructure.persistent.po.ArticleContent;
+import com.ben.infrastructure.persistent.dao.po.Article;
+import com.ben.infrastructure.persistent.dao.po.ArticleContent;
 import com.ben.infrastructure.persistent.search.LuceneHelper;
 import com.ben.infrastructure.persistent.search.index.ArticleIndex;
 import com.ben.types.common.DateTimeConstants;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.util.List;
 
 /*

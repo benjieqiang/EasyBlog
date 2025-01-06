@@ -55,6 +55,12 @@ jwt:
 lucene:
   indexDir: ./data/lucene/index
 
+# 网关
+gateway:
+  config:
+    enable: true
+    host: https://api.qjqq.cn
+
 # 日志
 logging:
   level:

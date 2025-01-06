@@ -13,6 +13,7 @@ public enum ResponseCode implements IBaseException {
     // ----------- 通用异常状态码 -----------
     SYSTEM_ERROR("10000", "出错啦，后台小哥正在努力修复中..."),
     PARAM_NOT_VALID("10001", "参数错误"),
+    GATEWAY_ERROR("10002", "调用第三方接口调用失败"),
 
 
     // ----------- 业务异常状态码 -----------
@@ -40,6 +41,11 @@ public enum ResponseCode implements IBaseException {
     WIKI_CATALOG_NOT_EXISTED("20018", "该Wiki目录不存在！"),
     WIKI_CATALOG_UPDATED_FAILED("20019", "该Wiki目录更新失败！"),
 
+    NOT_QQ_NUMBER("20020", "QQ 号格式不正确"),
+    COMMENT_CONTAIN_SENSITIVE_WORD("20021", "评论内容中包含敏感词，请重新编辑后再提交"),
+    COMMENT_WAIT_EXAMINE("20022", "评论已提交, 等待博主审核通过"),
+    COMMENT_NOT_FOUND("20023", "该评论不存在"),
+    COMMENT_STATUS_NOT_WAIT_EXAMINE("20024", "该评论未处于待审核状态"),
     ;
 
     // 异常码

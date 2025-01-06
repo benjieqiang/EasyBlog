@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ben.infrastructure.persistent.dao.IArticleDao">
 
-    <resultMap id="articleMap" type="com.ben.infrastructure.persistent.po.Article">
+    <resultMap id="articleMap" type="com.ben.infrastructure.persistent.dao.po.Article">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="cover" property="cover"/>
@@ -15,7 +15,7 @@
         <result column="type" property="type"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.Article" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.dao.po.Article" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO article(title,
                             cover,
@@ -162,7 +162,7 @@
         where is_deleted = 0
     </select>
 
-    <select id="selectDateArticlePublishCount" resultType="com.ben.infrastructure.persistent.po.ArticleCount">
+    <select id="selectDateArticlePublishCount" resultType="com.ben.infrastructure.persistent.dao.po.ArticleCount">
         SELECT DATE (create_time) AS date, COUNT (*) AS count
         FROM article
         WHERE create_time &gt;= #{startDate}
@@ -187,7 +187,7 @@
         </foreach>
     </update>
 
-    <update id="update" parameterType="com.ben.infrastructure.persistent.po.Article">
+    <update id="update" parameterType="com.ben.infrastructure.persistent.dao.po.Article">
         UPDATE article
         <set>
             <if test="title != null">

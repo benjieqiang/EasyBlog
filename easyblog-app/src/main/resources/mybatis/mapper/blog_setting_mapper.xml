@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ben.infrastructure.persistent.dao.IBlogSettingDao">
 
-    <resultMap id="blogSettingMap" type="com.ben.infrastructure.persistent.po.BlogSetting">
+    <resultMap id="blogSettingMap" type="com.ben.infrastructure.persistent.dao.po.BlogSetting">
         <id column="id" property="id"/>
         <result column="logo" property="logo"/>
         <result column="name" property="name"/>
@@ -18,7 +18,7 @@
         <result column="is_comment_examine_open" property="isCommentExamineOpen"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.ben.infrastructure.persistent.po.BlogSetting">
+    <insert id="insert" parameterType="com.ben.infrastructure.persistent.dao.po.BlogSetting">
         INSERT INTO blog_setting(logo,
                                  name,
                                  author,
@@ -35,7 +35,7 @@
                 #{giteeHomepage}, #{zhihuHomepage}, #{mail}, #{isCommentSensiWordOpen}, #{isCommentExamineOpen})
     </insert>
 
-    <update id="update" parameterType="com.ben.infrastructure.persistent.po.BlogSetting">
+    <update id="update" parameterType="com.ben.infrastructure.persistent.dao.po.BlogSetting">
         UPDATE blog_setting
         SET logo                       = #{logo},
             name                       = #{name},

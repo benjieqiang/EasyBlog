@@ -1,7 +1,7 @@
 package com.ben.infrastructure.persistent.dao;
 
-import com.ben.infrastructure.persistent.po.Article;
-import com.ben.infrastructure.persistent.po.ArticleCount;
+import com.ben.infrastructure.persistent.dao.po.Article;
+import com.ben.infrastructure.persistent.dao.po.ArticleCount;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

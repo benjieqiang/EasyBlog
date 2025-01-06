@@ -1,6 +1,6 @@
 package com.ben.infrastructure.persistent.dao;
 
-import com.ben.infrastructure.persistent.po.ArticleTagRel;
+import com.ben.infrastructure.persistent.dao.po.ArticleTagRel;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.ben.domain.web.service.impl;
 
 import com.ben.domain.web.model.entity.BlogSettingEntity;
-import com.ben.domain.web.repository.IBlogSettingRepository;
+import com.ben.domain.web.adapter.repository.IBlogSettingRepository;
 import com.ben.domain.web.service.IBlogSettingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

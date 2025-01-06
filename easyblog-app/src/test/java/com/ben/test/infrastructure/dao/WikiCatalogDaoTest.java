@@ -2,7 +2,7 @@ package com.ben.test.infrastructure.dao;
 
 import com.ben.domain.admin.model.valobj.WikiCatalogLevelVO;
 import com.ben.infrastructure.persistent.dao.IWikiCatalogDao;
-import com.ben.infrastructure.persistent.po.WikiCatalog;
+import com.ben.infrastructure.persistent.dao.po.WikiCatalog;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

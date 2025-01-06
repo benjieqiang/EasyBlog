@@ -1,7 +1,7 @@
 package com.ben.test.infrastructure.dao;
 
 import com.ben.infrastructure.persistent.dao.IArticleCategoryRelDao;
-import com.ben.infrastructure.persistent.po.ArticleCategoryRel;
+import com.ben.infrastructure.persistent.dao.po.ArticleCategoryRel;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
