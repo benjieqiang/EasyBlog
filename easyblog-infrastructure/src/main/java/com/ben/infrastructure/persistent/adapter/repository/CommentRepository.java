@@ -1,5 +1,6 @@
 package com.ben.infrastructure.persistent.adapter.repository;
 
+import com.ben.domain.web.adapter.event.PublishCommentEvent;
 import com.ben.domain.web.adapter.port.IQQInfoPort;
 import com.ben.domain.web.adapter.repository.ICommentRepository;
 import com.ben.domain.web.model.aggregate.CommentListAggregate;
@@ -16,6 +17,7 @@ import com.ben.types.exception.BizException;
 import com.github.houbb.sensitive.word.bs.SensitiveWordBs;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -48,6 +50,9 @@ public class CommentRepository implements ICommentRepository {
 
     @Resource
     private SensitiveWordBs sensitiveWordBs;
+
+    @Resource
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public QQUserInfoEntity findQQUserInfo(String qq) {
@@ -99,7 +104,7 @@ public class CommentRepository implements ICommentRepository {
             }
         }
 
-        // 构建 DO 对象
+        // 构建 PO 对象
         Comment comment = Comment.builder()
                 .avatar(commentEntity.getAvatar())
                 .content(content)
@@ -116,9 +121,9 @@ public class CommentRepository implements ICommentRepository {
         // 新增评论
         commentDao.insert(comment);
 
-//        Long commentId = commentDO.getId();
-//        // 发送评论发布事件
-//        eventPublisher.publishEvent(new PublishCommentEvent(this, commentId));
+        Long commentId = comment.getId();
+        // 发送评论发布事件
+        eventPublisher.publishEvent(new PublishCommentEvent(this, commentId));
 
         // 给予前端对应的提示信息
         if (isContainSensitiveWord)

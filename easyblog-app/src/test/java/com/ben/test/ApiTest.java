@@ -1,9 +1,11 @@
 package com.ben.test;
 
 import com.ben.domain.auth.utils.JwtUtil;
+import com.ben.types.utils.MailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,6 +19,10 @@ public class ApiTest {
 
     @Resource
     private JwtUtil jwtutil;
+
+    @Autowired
+    private MailUtil mailUtil;
+
     @Test
     public void test() {
         log.info("测试完成");
@@ -48,5 +54,10 @@ public class ApiTest {
     public void test_passwordEncode() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         log.info("encode: {}", encoder.encode("test123"));
+    }
+
+    @Test
+    public void test_sendMail() {
+        mailUtil.sendHtml("benjieqiang@gmail.com", "测试邮件标题", "<h1>测试邮件正文</h1>");
     }
 }

@@ -22,7 +22,7 @@ public interface ICommentDao {
 
     int deleteByParentCommentId(Long parentCommentId);
 
-    List<Comment> selectById(Long id);
+    Comment selectById(Long id);
 
     List<Comment> selectByRouterUrlAndStatus(String routerUrl, Integer status);
 
