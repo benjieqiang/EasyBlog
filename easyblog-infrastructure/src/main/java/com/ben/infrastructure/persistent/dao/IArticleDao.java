@@ -20,8 +20,10 @@ import java.util.List;
 public interface IArticleDao {
     /* 插入 */
     void insert(Article article);
+
     /* 删除 */
     int deleteByArticleId(Long articleId);
+
     /* 根据文章id更新 */
     int update(Article article);
 
@@ -32,7 +34,10 @@ public interface IArticleDao {
     Article selectMaxWeight();
 
     /* 分页查询 */
-    List<Article> selectPageList(String title, LocalDateTime startDate, LocalDateTime endDate, Integer type);
+    List<Article> selectPageList(@Param("title") String title,
+                                 @Param("startDate") LocalDateTime startDate,
+                                 @Param("endDate") LocalDateTime endDate,
+                                 @Param("type") Integer type);
 
     /* 根据文章 ID 批量分页查询 */
     List<Article> selectPageListByArticleIds(List<Long> articleIds);
