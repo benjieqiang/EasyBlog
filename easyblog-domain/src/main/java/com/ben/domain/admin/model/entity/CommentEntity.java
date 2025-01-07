@@ -40,9 +40,9 @@ public class CommentEntity {
     /* 删除标志位：0：未删除 1：已删除 */
     private Integer isDeleted;
     /* 回复的评论 ID */
-    private Integer replyCommentId;
+    private Long replyCommentId;
     /* 父评论 ID */
-    private Integer parentCommentId;
+    private Long parentCommentId;
     /* 原因描述 */
     private String reason;
     /* 1: 待审核；2：正常；3：审核未通过; */

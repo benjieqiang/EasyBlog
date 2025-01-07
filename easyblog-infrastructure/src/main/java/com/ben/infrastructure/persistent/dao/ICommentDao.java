@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,8 +30,8 @@ public interface ICommentDao {
     List<Comment> selectByReplyCommentId(Long replyCommentId);
 
     List<Comment> selectPageList(@Param("routerUrl") String routerUrl,
-                                 @Param("startDate") LocalDate startDate,
-                                 @Param("endDate") LocalDate endDate,
+                                 @Param("startDate") LocalDateTime startDate,
+                                 @Param("endDate") LocalDateTime endDate,
                                  @Param("status") Integer status);
 
     int update(Comment comment);

@@ -127,7 +127,8 @@
         reason,
         status
         from comment
-        <if test="router_url != null and router_url != ''">
+        where is_deleted = 0
+        <if test="routerUrl != null and routerUrl != ''">
             AND router_url LIKE CONCAT('%', #{routerUrl}, '%')
         </if>
         <if test="startDate != null">

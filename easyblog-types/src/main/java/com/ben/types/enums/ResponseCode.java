@@ -46,6 +46,8 @@ public enum ResponseCode implements IBaseException {
     COMMENT_WAIT_EXAMINE("20022", "评论已提交, 等待博主审核通过"),
     COMMENT_NOT_FOUND("20023", "该评论不存在"),
     COMMENT_STATUS_NOT_WAIT_EXAMINE("20024", "该评论未处于待审核状态"),
+    COMMENT_DELETE_FAILED("20025", "评论删除失败！"),
+
     ;
 
     // 异常码

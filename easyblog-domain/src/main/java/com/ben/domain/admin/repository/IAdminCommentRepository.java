@@ -1,5 +1,9 @@
 package com.ben.domain.admin.repository;
 
+import com.ben.domain.admin.model.entity.CommentEntity;
+import com.ben.domain.admin.model.entity.CommentPageEntity;
+import com.github.pagehelper.PageInfo;
+
 /**
  * @InterfaceName: IAdminCommentRepository
  * @Description: 添加描述
@@ -9,5 +13,10 @@ package com.ben.domain.admin.repository;
  */
 
 public interface IAdminCommentRepository {
+    PageInfo<CommentEntity> findCommentPageList(CommentPageEntity commentPageEntity);
+
+    void deleteComment(Long id);
+
+    void examine(Long commentId, Integer status, String reason);
 }
 
