@@ -1,6 +1,8 @@
 # Project Name
 **EasyBlog - A DDD-Based Frontend-Backend Separated Blog Project**
 
+[中文版本，点击这里](README.zh-CN.md)
+
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Features](#features)
